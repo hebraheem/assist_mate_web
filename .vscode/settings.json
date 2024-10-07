@@ -1,0 +1,15 @@
+{
+  "cSpell.words": ["Parens"],
+
+  "editor.formatOnSave": true, // Format on save
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always" // Run ESLint auto-fixes on save
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "prettier.requireConfig": true // Ensure Prettier uses your config
+}
