@@ -1,12 +1,12 @@
 // src/axios.ts
 
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 
 // Define a type for the API response (optional, for stricter typing)
 interface ApiResponse<T = any> {
-  data: T;
-  message?: string;
-  status?: number;
+  data: T
+  message?: string
+  status?: number
 }
 
 // Create an axios instance with default config
@@ -16,60 +16,60 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-});
+})
 
 // Request interceptor to attach tokens and modify config
 axiosInstance.interceptors.request.use(
   // @ts-ignore
   (config: AxiosRequestConfig): AxiosRequestConfig => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token')
     if (token) {
       config.headers = {
         ...config.headers,
         Authorization: `Bearer ${token}`,
-      };
+      }
     }
-    return config;
+    return config
   },
   (error: AxiosError): Promise<AxiosError> => {
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
 // Response interceptor for handling responses and errors
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>): AxiosResponse<ApiResponse> => {
-    return response; // Optionally transform response here
+    return response // Optionally transform response here
   },
   (error: AxiosError): Promise<AxiosError> => {
     // Handle different error statuses
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          console.error('Unauthorized: Redirecting to login');
+          console.error('Unauthorized: Redirecting to login')
           // Handle 401 unauthorized case
-          break;
+          break
         case 403:
-          console.error('Forbidden: Access is denied');
-          break;
+          console.error('Forbidden: Access is denied')
+          break
         case 404:
-          console.error('Not Found: API endpoint not found');
-          break;
+          console.error('Not Found: API endpoint not found')
+          break
         case 500:
-          console.error('Server Error: Internal server error');
-          break;
+          console.error('Server Error: Internal server error')
+          break
         default:
-          console.error('Unknown Error occurred');
+          console.error('Unknown Error occurred')
       }
     } else if (error.request) {
       // Request made but no response received
-      console.error('No response from server');
+      console.error('No response from server')
     } else {
       // Something else went wrong
-      console.error('Request error:', error.message);
+      console.error('Request error:', error.message)
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-export default axiosInstance;
+export default axiosInstance
