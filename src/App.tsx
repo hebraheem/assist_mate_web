@@ -7,7 +7,7 @@ function App() {
   useEffect(() => {
     async function getUsers() {
       const u = await axiosInstance.get(
-        'https://jsonplaceholder.typicode.com/users/10'
+        'https://jsonplaceholder.typicode.com/users/5'
       );
       setUsers(u.data);
     }
@@ -56,11 +56,11 @@ function App() {
 
   return (
     <div className="App">
- {showInstallButton && (
+        {showInstallButton && (
         <button onClick={handleInstallClick}>
           Install App
         </button>
-      )}
+        )}
       <h1>hello</h1>
       <p key={users.name}>{users.name}</p>
     </div>
