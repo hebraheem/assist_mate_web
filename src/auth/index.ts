@@ -5,22 +5,22 @@ import { jwtDecode } from 'jwt-decode';
  * @returns boolean
  */
 export const isAuthenticated = () => {
-  const token = getAuthToken();
+    const token = getAuthToken();
 
-  if (token) {
-    const decodedToken: { exp: number } = jwtDecode(token);
-    const { exp } = decodedToken;
-    const currentTime = Date.now() / 1000;
+    if (token) {
+        const decodedToken: { exp: number } = jwtDecode(token);
+        const { exp } = decodedToken;
+        const currentTime = Date.now() / 1000;
 
-    if (exp < currentTime) {
-      clearVault();
-      return false;
+        if (exp < currentTime) {
+            clearVault();
+            return false;
+        }
+
+        return true;
     }
 
-    return true;
-  }
-
-  return false;
+    return false;
 };
 
 /**
@@ -29,7 +29,7 @@ export const isAuthenticated = () => {
  * @type {string}
  */
 export const setAuthToken = (token: string) => {
-  localStorage.setItem('token', token);
+    localStorage.setItem('token', token);
 };
 
 /**
@@ -37,16 +37,16 @@ export const setAuthToken = (token: string) => {
  * @returns {string | null}
  */
 export const getAuthToken = () => {
-  const token = localStorage.getItem('token');
-  return token || null;
+    const token = localStorage.getItem('token');
+    return token || null;
 };
 
 export const setRefreshToken = (refreshToken: string) => {
-  localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('refreshToken', refreshToken);
 };
 
 export const getRefreshToken = () => {
-  return localStorage.getItem('refreshToken');
+    return localStorage.getItem('refreshToken');
 };
 
 /**
@@ -54,7 +54,7 @@ export const getRefreshToken = () => {
  * @returns { null}
  */
 export const clearVault = () => {
-  //clear the localStorage,
-  localStorage.removeItem('token');
-  localStorage.clear();
+    //clear the localStorage,
+    localStorage.removeItem('token');
+    localStorage.clear();
 };

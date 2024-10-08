@@ -1,15 +1,15 @@
 export interface IRootObject {
-  user?: null;
-  signIn?: unknown;
-  signOut?: unknown;
+    user?: null;
+    signIn?: unknown;
+    signOut?: unknown;
 }
 
 export interface IBasicChild {
-  children: React.ReactElement;
+    children: React.ReactElement;
 }
 
 export interface IAuthData {
-  token: string | null;
-  isAuthenticated: boolean;
-  user: UseAuthReturn;
+    token: string | null;
+    isAuthenticated: boolean;
+    user: UseAuthReturn;
 }
