@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div>
       {showInstallButton && (
         <button onClick={handleInstallClick}>Install App</button>
       )}
