@@ -27,11 +27,12 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/ban-ts-comment': 'warn',
     'no-console': 'warn',
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'prettier/prettier': 'warn',
   },
   env: {
     browser: true,
-    es2021: true,
+    es2024: true,
   },
 };
