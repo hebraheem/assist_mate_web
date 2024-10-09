@@ -1,0 +1,181 @@
+import { useEffect, useRef, useState } from 'react';
+import useUserLocation from '../../hooks/useUserLocation';
+import SearchBox from './google-search-box';
+import { GoogleMap } from '@react-google-maps/api';
+import { LatLng, MapWithMarkers } from '../../@types/maps';
+import { markersData } from '../../utils/mocks';
+import { MAP_ID } from '../../utils/constant/map';
+import { useUser } from '@clerk/clerk-react';
+import { noUserImage } from '../../utils/constant';
+import { TRAVEL_MODE } from '../../constants/enum';
+
+const GeoMap = () => {
+  const { user } = useUser() ?? { hasImage: false, imageUrl: '' };
+  const { latitude, longitude, error } = useUserLocation();
+  const [center, setCenter] = useState<LatLng>();
+  const mapRef = useRef<MapWithMarkers | null>(null);
+  const [travelMode] = useState(TRAVEL_MODE.WALKING);
+
+  useEffect(
+    () => {
+      if (!center?.lat || !center?.lng || !mapRef?.current) return;
+      createAdvancedMarker();
+    },
+    // eslint-disable-next-line
+  [ center, mapRef]);
+
+  useEffect(
+    () => {
+      if (error) {
+        alert(error);
+      } else {
+        setCenter({
+          lat: latitude as number,
+          lng: longitude as number,
+        });
+      }
+    },
+    // eslint-disable-next-line
+    [error, latitude, longitude]
+  );
+
+  if (!center?.lat || !center?.lng) return null;
+
+  // eslint-disable-next-line
+  const getDistance = (origin: any, dest: any) => {
+    const service = new google.maps.DistanceMatrixService();
+    return service.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [dest],
+        travelMode: travelMode,
+      },
+      // eslint-disable-next-line
+      (response: any, status: any) => {
+        if (status === 'OK') {
+          const element = response.rows[0].elements[0];
+
+          if (element.status === 'OK') {
+            return element;
+          } else {
+            console.error('Error fetching distance matrix:', element.status);
+          }
+        } else {
+          console.error('Distance Matrix API error:', status);
+        }
+      }
+    );
+  };
+
+  async function createAdvancedMarker() {
+    // Request needed libraries.
+    const { Map, InfoWindow } = (await google.maps.importLibrary(
+      'maps'
+    )) as google.maps.MapsLibrary;
+    const { AdvancedMarkerElement, PinElement } =
+      (await google.maps.importLibrary('marker')) as google.maps.MarkerLibrary;
+
+    const map = new Map(document.getElementById('map-testing') as HTMLElement, {
+      zoom: 12,
+      center,
+      mapId: MAP_ID,
+    });
+
+    // Create an info window to share between markers.
+    const infoWindow = new InfoWindow();
+
+    // Create the markers.
+    markersData.forEach(({ lat, lng, title, user }, i) => {
+      const pin = new PinElement({
+        scale: 1,
+        background: 'purple',
+        borderColor: 'white',
+        glyphColor: 'white',
+        glyph: 'T',
+      });
+      const marker = new AdvancedMarkerElement({
+        position: { lat, lng },
+        map,
+        title: `${i + 1}. ${title}`,
+        content: pin.element,
+        gmpClickable: true,
+      });
+
+      // Add a click listener for each marker, and set up the info window.
+      marker.addListener(
+        'click',
+        async ({
+          latLng,
+        }: {
+          latLng: { lat: () => number, lng: () => number },
+        }) => {
+          const origin = { lat: latLng.lat(), lng: latLng.lng() };
+          const distance = await getDistance(origin, center);
+          infoWindow.close();
+          infoWindow.setContent(
+            `<div>
+            <p class='font-medium text-xl'>${user.fullName}</p>
+            <p class='font-medium'>Location: ${distance.originAddresses[0]}</p>
+            <p class='font-medium'>By: ${travelMode}</p>
+            <p class='font-bold'>Distance: ${distance.rows[0].elements[0].distance.text}</p>
+            <p class='font-bold'>Time: ${distance.rows[0].elements[0].duration.text}</p>
+            </div>`
+          );
+          infoWindow.open(marker.map, marker);
+        }
+      );
+    });
+
+    const userImage = document.createElement('img');
+    userImage.src = user?.hasImage ? user?.imageUrl : noUserImage;
+    userImage.classList.add('w-6', 'h-6', 'rounded-full', 'contain');
+    const draggable = new AdvancedMarkerElement({
+      position: center,
+      map,
+      content: userImage,
+      gmpClickable: false,
+      gmpDraggable: true,
+    });
+    draggable.addListener('dragend', () => {
+      const { lat, lng } = draggable.position as google.maps.LatLng;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setCenter({ lat, lng });
+    });
+  }
+
+  return (
+    <div style={{ height: '45vh', width: '100%', borderRadius: 10 }}>
+      {!center?.lat || !center?.lng ? (
+        <div>Loading map... Allow to get your location</div>
+      ) : (
+        <>
+          <SearchBox
+            onPlacesChanged={(values) => {
+              const geo = values[0].geometry;
+              if (geo) {
+                setCenter({
+                  lat: geo.location.lat() as number,
+                  lng: geo.location.lng() as number,
+                });
+              }
+            }}
+          />
+          <GoogleMap
+            id="map-testing"
+            mapContainerStyle={{ width: '100%', height: '100%' }}
+            center={center}
+            mapTypeId="terrain"
+            zoom={12}
+            onLoad={(map) => {
+              mapRef.current = map;
+              createAdvancedMarker();
+            }}
+          />
+        </>
+      )}
+    </div>
+  );
+};
+
+export default GeoMap;

@@ -7,8 +7,10 @@ const AuthLayout = () => {
     return <Navigate to={publicUrls.SIGN_IN} />;
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Outlet />
+    <div className="flex justify-center items-center h-screen ">
+        <div className='overflow-auto'>
+          <Outlet />
+        </div>
     </div>
   );
 };
