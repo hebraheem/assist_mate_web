@@ -11,7 +11,7 @@ module.exports = {
     'plugin:storybook/recommended',
   ],
   parserOptions: {
-    ecmaVersion: 2024,
+    ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -29,7 +29,15 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/ban-ts-comment': 'warn',
     // 'no-console': 'warn',
-    // 'prettier/prettier': 'warn',
+    // 'prettier/prettier': [
+    //   'error',
+    //   {
+    //     singleQuote: true,
+    //     parser: 'flow',
+    //   },
+    // ],
+    // 'import/no-dynamic-require': 'off', // if using dynamic imports via `require`
+    // 'import/no-unresolved': 'off',
   },
   env: {
     browser: true,
