@@ -28,7 +28,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/ban-ts-comment': 'warn',
-    'no-console': 'warn',
+    // 'no-console': 'warn',
     // 'prettier/prettier': 'warn',
   },
   env: {
