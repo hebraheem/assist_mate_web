@@ -15,6 +15,16 @@ export const publicRouteConfig = [
         },
     },
     {
+        path: publicUrls.SIGN_IN_ONE,
+        element: <SignInClerk />,
+        handle: (data?: never) => {
+            return {
+                isLogin: true,
+                data,
+            };
+        },
+    },
+    {
         path: publicUrls.SING_UP,
         element: <SignUpClerk />,
         handle: (data?: never) => {
