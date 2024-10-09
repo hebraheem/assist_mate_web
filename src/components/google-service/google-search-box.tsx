@@ -1,3 +1,4 @@
+/*global google*/
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import PropTypes from 'prop-types';

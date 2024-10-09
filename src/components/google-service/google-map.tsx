@@ -1,3 +1,4 @@
+/*global google*/
 import { useEffect, useRef, useState } from 'react';
 import useUserLocation from '../../hooks/useUserLocation';
 import SearchBox from './google-search-box';

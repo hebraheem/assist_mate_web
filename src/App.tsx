@@ -6,13 +6,7 @@ import ErrorBoundary from './components/error-boundary';
 
 function App() {
   return (
-    <Suspense
-      fallback={
-        <div className="flex justify-center items-center h-screen w-full">
-          Loading...
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="flex justify-center items-center h-screen w-full">Loading...</div>}>
       <ErrorBoundary>
         <RouterProvider router={router} />
       </ErrorBoundary>
