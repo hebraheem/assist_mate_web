@@ -15,9 +15,7 @@ const GeoMap = () => {
   const { latitude, longitude, error } = useUserLocation();
   const [center, setCenter] = useState<LatLng>();
   const mapRef = useRef<MapWithMarkers | null>(null);
-  const [travelMode, seTravelMode] = useState<google.maps.TravelMode>(
-    TRAVEL_MODE.WALKING
-  );
+  const [travelMode, seTravelMode] = useState<google.maps.TravelMode>(TRAVEL_MODE.WALKING);
 
   useEffect(
     () => {
@@ -25,7 +23,8 @@ const GeoMap = () => {
       createAdvancedMarker();
     },
     // eslint-disable-next-line
-  [ center, mapRef,travelMode]);
+    [center, mapRef, travelMode]
+  );
 
   useEffect(
     () => {
@@ -44,9 +43,7 @@ const GeoMap = () => {
 
   if (!center?.lat || !center?.lng) {
     return (
-      <div className="w-full h-[45%] flex justify-center items-center">
-        Loading map... Allow to get your location
-      </div>
+      <div className="w-full h-[45%] flex justify-center items-center">Loading map... Allow to get your location</div>
     );
   }
 
@@ -78,11 +75,10 @@ const GeoMap = () => {
 
   async function createAdvancedMarker() {
     // Request needed libraries.
-    const { Map, InfoWindow } = (await google.maps.importLibrary(
-      'maps'
-    )) as google.maps.MapsLibrary;
-    const { AdvancedMarkerElement, PinElement } =
-      (await google.maps.importLibrary('marker')) as google.maps.MarkerLibrary;
+    const { Map, InfoWindow } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
+    const { AdvancedMarkerElement, PinElement } = (await google.maps.importLibrary(
+      'marker'
+    )) as google.maps.MarkerLibrary;
 
     const map = new Map(document.getElementById('map-testing') as HTMLElement, {
       zoom: 12,
@@ -111,18 +107,12 @@ const GeoMap = () => {
       });
 
       // Add a click listener for each marker, and set up the info window.
-      marker.addListener(
-        'click',
-        async ({
-          latLng,
-        }: {
-          latLng: { lat: () => number, lng: () => number },
-        }) => {
-          const origin = { lat: latLng.lat(), lng: latLng.lng() };
-          const distance = await getDistance(origin, center);
-          infoWindow.close();
-          infoWindow.setContent(
-            `<div>
+      marker.addListener('click', async ({ latLng }: { latLng: { lat: () => number; lng: () => number } }) => {
+        const origin = { lat: latLng.lat(), lng: latLng.lng() };
+        const distance = await getDistance(origin, center);
+        infoWindow.close();
+        infoWindow.setContent(
+          `<div>
             <p class='font-medium text-xl'>${user.fullName}</p>
             <p class='font-medium'>Location: ${distance.originAddresses[0]}</p>
             <p class='font-medium'>By: ${TRAVEL_MODE_MAPPER(travelMode)}</p>
@@ -132,10 +122,9 @@ const GeoMap = () => {
             <button class='border-2 border-slate-400 rounded-lg p-1'>Select</button>
             </div>
             </div>`
-          );
-          infoWindow.open(marker.map, marker);
-        }
-      );
+        );
+        infoWindow.open(marker.map, marker);
+      });
     });
 
     const userImage = document.createElement('img');
@@ -175,10 +164,9 @@ const GeoMap = () => {
       ) : (
         <>
           <select
+            value={travelMode}
             className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg absolute bottom-2 z-10 ml-2"
-            onChange={({ target }) =>
-              seTravelMode(target.value as google.maps.TravelMode)
-            }
+            onChange={({ target }) => seTravelMode(target.value as google.maps.TravelMode)}
           >
             {Object.keys(TRAVEL_MODE).map((mode) => (
               <option value={mode} key={mode}>
