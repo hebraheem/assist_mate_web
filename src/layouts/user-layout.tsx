@@ -20,28 +20,16 @@ const UserLayout = () => {
           <span className="material-icons text-red-700 text-[14px] absolute right-[-2px] top-[-5px] z-10">
             notifications
           </span>
-          <UserButton
-            afterSignOutUrl={publicUrls.SIGN_IN}
-            appearance={{}}
-            showName={true}
-          >
+          <UserButton afterSignOutUrl={publicUrls.SIGN_IN} appearance={{}} showName={true}>
             <UserButton.MenuItems>
               <UserButton.Link
                 label="Advance settings"
                 labelIcon={<AdvanceSettingIcon />}
                 href={privateUrls.SETTINGS}
               />
-              <UserButton.Action
-                label="Notification"
-                labelIcon={<DotIcon />}
-                open={privateUrls.NOTIFICATION}
-              />
+              <UserButton.Action label="Notification" labelIcon={<DotIcon />} open={privateUrls.NOTIFICATION} />
             </UserButton.MenuItems>
-            <UserButton.UserProfilePage
-              label="Notifications"
-              labelIcon={<DotIcon />}
-              url={privateUrls.NOTIFICATION}
-            >
+            <UserButton.UserProfilePage label="Notifications" labelIcon={<DotIcon />} url={privateUrls.NOTIFICATION}>
               <div>
                 <h1>Help Page</h1>
                 <p>This is the custom help page</p>

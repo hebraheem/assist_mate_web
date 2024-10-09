@@ -11,12 +11,12 @@ export interface ICoordinate {
 
 export interface IHeatmap {
   positions: {
-    lat: number,
-    lng: number,
-    weight?: number,
+    lat: number;
+    lng: number;
+    weight?: number;
   }[];
   options: {
-    radius?: number,
-    opacity?: number,
+    radius?: number;
+    opacity?: number;
   };
 }

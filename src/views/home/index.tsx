@@ -1,4 +1,3 @@
-import React from 'react';
 import GeoMap from '../../components/google-service/google-map';
 
 const Home = () => {

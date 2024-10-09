@@ -18,10 +18,7 @@ const useInstallPrompt = () => {
 
     // Cleanup the event listener on component unmount
     return () => {
-      window.removeEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt
-      );
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
 

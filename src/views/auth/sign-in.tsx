@@ -1,5 +1,4 @@
 import { SignIn } from '@clerk/clerk-react';
-import React from 'react';
 import { privateUrls, publicUrls } from '../../routes/urls';
 
 const SignInClerk = () => {

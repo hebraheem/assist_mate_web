@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  RouteObject,
-  useRouteError,
-} from 'react-router-dom';
+import { createBrowserRouter, RouteObject, useRouteError } from 'react-router-dom';
 
 import { publicRouteConfig } from './public-route';
 import AuthLayout from '../layouts/auth-layout';
