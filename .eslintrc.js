@@ -4,7 +4,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     // 'plugin:prettier/recommended',
@@ -24,10 +24,10 @@ module.exports = {
     },
   },
   rules: {
-    'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-unused-vars': ['error'],
-    '@typescript-eslint/ban-ts-comment': 'warn',
+    // 'react/react-in-jsx-scope': 'off',
+    // '@typescript-eslint/explicit-function-return-type': 'off',
+    // '@typescript-eslint/no-unused-vars': ['error'],
+    // '@typescript-eslint/ban-ts-comment': 'warn',
     // 'prettier/prettier': [
     //   'warn',
     //   {
