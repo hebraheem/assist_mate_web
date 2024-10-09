@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "mapcapabilities",
-        "Parens"
+        "nocheck",
+        "Parens",
+        "svgs"
     ],
     "editor.formatOnSave": true, // Format on save
     "editor.codeActionsOnSave": {

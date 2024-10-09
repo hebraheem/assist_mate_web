@@ -4,6 +4,7 @@ export const privateUrls = {
   HOME: '/home',
   PROFILE: '/profile',
   SETTINGS: '/settings',
+  NOTIFICATION: '/notification',
 };
 
 export const publicUrls: IPublicUrls = {

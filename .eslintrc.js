@@ -7,7 +7,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:prettier/recommended',
+    // 'plugin:prettier/recommended',
     'plugin:storybook/recommended',
   ],
   parserOptions: {
@@ -28,16 +28,16 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/ban-ts-comment': 'warn',
-    'prettier/prettier': [
-      'warn',
-      {
-        singleQuote: true,
-        parser: 'flow',
-        formatOnSave: true,
-      },
-    ],
-    'import/no-dynamic-require': 'off', // if using dynamic imports via `require`
-    'import/no-unresolved': 'off',
+    // 'prettier/prettier': [
+    //   'warn',
+    //   {
+    //     singleQuote: true,
+    //     parser: 'flow',
+    //     formatOnSave: true,
+    //   },
+    // ],
+    // 'import/no-dynamic-require': 'off', // if using dynamic imports via `require`
+    // 'import/no-unresolved': 'off',
   },
   env: {
     browser: true,

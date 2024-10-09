@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import PropTypes from 'prop-types';
 import React, { createRef } from 'react';
@@ -7,6 +8,7 @@ export default class SearchBox extends React.Component {
   static propTypes = {
     placeholder: PropTypes.string,
     onPlacesChanged: PropTypes.func,
+    inputClass: PropTypes.string,
   };
 
   render() {
@@ -14,9 +16,9 @@ export default class SearchBox extends React.Component {
       <input
         ref={this.inputRef}
         {...this.props}
-        type="text"
+        type="search"
         placeholder="Change your location"
-        className="md:w-[50%] w-full border-slate-500 p-3 border-2 rounded-lg focus:border-blue-500 absolute z-10 m-3"
+        className={`md:w-[50%] w-full border-slate-300 p-3 border-2 rounded-lg focus:border-blue-500 ${this.props.inputClass ?? ''}`}
       />
     );
   }

@@ -8,13 +8,16 @@ import { MAP_ID } from '../../utils/constant/map';
 import { useUser } from '@clerk/clerk-react';
 import { noUserImage } from '../../utils/constant';
 import { TRAVEL_MODE } from '../../constants/enum';
+import { TRAVEL_MODE_MAPPER } from '../../utils/methods/helpers';
 
 const GeoMap = () => {
   const { user } = useUser() ?? { hasImage: false, imageUrl: '' };
   const { latitude, longitude, error } = useUserLocation();
   const [center, setCenter] = useState<LatLng>();
   const mapRef = useRef<MapWithMarkers | null>(null);
-  const [travelMode] = useState(TRAVEL_MODE.WALKING);
+  const [travelMode, seTravelMode] = useState<google.maps.TravelMode>(
+    TRAVEL_MODE.WALKING
+  );
 
   useEffect(
     () => {
@@ -22,7 +25,7 @@ const GeoMap = () => {
       createAdvancedMarker();
     },
     // eslint-disable-next-line
-  [ center, mapRef]);
+  [ center, mapRef,travelMode]);
 
   useEffect(
     () => {
@@ -39,7 +42,13 @@ const GeoMap = () => {
     [error, latitude, longitude]
   );
 
-  if (!center?.lat || !center?.lng) return null;
+  if (!center?.lat || !center?.lng) {
+    return (
+      <div className="w-full h-[45%] flex justify-center items-center">
+        Loading map... Allow to get your location
+      </div>
+    );
+  }
 
   // eslint-disable-next-line
   const getDistance = (origin: any, dest: any) => {
@@ -85,7 +94,7 @@ const GeoMap = () => {
     const infoWindow = new InfoWindow();
 
     // Create the markers.
-    markersData.forEach(({ lat, lng, title, user }, i) => {
+    markersData.forEach(({ lat, lng, user }) => {
       const pin = new PinElement({
         scale: 1,
         background: 'purple',
@@ -96,7 +105,7 @@ const GeoMap = () => {
       const marker = new AdvancedMarkerElement({
         position: { lat, lng },
         map,
-        title: `${i + 1}. ${title}`,
+        title: user.fullName,
         content: pin.element,
         gmpClickable: true,
       });
@@ -116,9 +125,12 @@ const GeoMap = () => {
             `<div>
             <p class='font-medium text-xl'>${user.fullName}</p>
             <p class='font-medium'>Location: ${distance.originAddresses[0]}</p>
-            <p class='font-medium'>By: ${travelMode}</p>
+            <p class='font-medium'>By: ${TRAVEL_MODE_MAPPER(travelMode)}</p>
             <p class='font-bold'>Distance: ${distance.rows[0].elements[0].distance.text}</p>
-            <p class='font-bold'>Time: ${distance.rows[0].elements[0].duration.text}</p>
+            <div class='flex justify-between items-center'>
+            <p class='font-bold'>Time: ${distance.rows[0].elements[0].duration.text} </p>
+            <button class='border-2 border-slate-400 rounded-lg p-1'>Select</button>
+            </div>
             </div>`
           );
           infoWindow.open(marker.map, marker);
@@ -128,11 +140,16 @@ const GeoMap = () => {
 
     const userImage = document.createElement('img');
     userImage.src = user?.hasImage ? user?.imageUrl : noUserImage;
-    userImage.classList.add('w-6', 'h-6', 'rounded-full', 'contain');
+    userImage.classList.add('w-full', 'h-full', 'rounded-full', 'contain');
+    const userPin = new PinElement({
+      scale: 1,
+      background: 'orange',
+      glyph: userImage,
+    });
     const draggable = new AdvancedMarkerElement({
       position: center,
       map,
-      content: userImage,
+      content: userPin.element,
       gmpClickable: false,
       gmpDraggable: true,
     });
@@ -145,22 +162,44 @@ const GeoMap = () => {
   }
 
   return (
-    <div style={{ height: '45vh', width: '100%', borderRadius: 10 }}>
+    <div
+      style={{
+        height: '45vh',
+        width: '100%',
+        borderRadius: 10,
+        position: 'relative',
+      }}
+    >
       {!center?.lat || !center?.lng ? (
         <div>Loading map... Allow to get your location</div>
       ) : (
         <>
-          <SearchBox
-            onPlacesChanged={(values) => {
-              const geo = values[0].geometry;
-              if (geo) {
-                setCenter({
-                  lat: geo.location.lat() as number,
-                  lng: geo.location.lng() as number,
-                });
-              }
-            }}
-          />
+          <select
+            className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg absolute bottom-2 z-10 ml-2"
+            onChange={({ target }) =>
+              seTravelMode(target.value as google.maps.TravelMode)
+            }
+          >
+            {Object.keys(TRAVEL_MODE).map((mode) => (
+              <option value={mode} key={mode}>
+                {TRAVEL_MODE_MAPPER(mode as google.maps.TravelMode)}
+              </option>
+            ))}
+          </select>
+          <div className="flex justify-center">
+            <SearchBox
+              inputClass="absolute z-10 mt-12 w-[95%] mt-2 md:mt-2 p-2"
+              onPlacesChanged={(values) => {
+                const geo = values[0].geometry;
+                if (geo) {
+                  setCenter({
+                    lat: geo.location.lat() as number,
+                    lng: geo.location.lng() as number,
+                  });
+                }
+              }}
+            />
+          </div>
           <GoogleMap
             id="map-testing"
             mapContainerStyle={{ width: '100%', height: '100%' }}
