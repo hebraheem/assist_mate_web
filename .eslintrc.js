@@ -28,12 +28,12 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/ban-ts-comment': 'warn',
-    // 'no-console': 'warn',
     // 'prettier/prettier': [
-    //   'error',
+    //   'warn',
     //   {
     //     singleQuote: true,
     //     parser: 'flow',
+    //     formatOnSave: true,
     //   },
     // ],
     // 'import/no-dynamic-require': 'off', // if using dynamic imports via `require`
