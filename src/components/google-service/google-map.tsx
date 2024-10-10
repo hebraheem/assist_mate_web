@@ -15,6 +15,7 @@ const GeoMap = () => {
   const { user } = useUser() ?? { hasImage: false, imageUrl: '' };
   const { latitude, longitude, error } = useUserLocation();
   const [center, setCenter] = useState<LatLng>();
+  const [radius, setRadius] = useState<number | string>('');
   const mapRef = useRef<MapWithMarkers | null>(null);
   const [travelMode, seTravelMode] = useState<google.maps.TravelMode>(TRAVEL_MODE.WALKING);
 
@@ -24,7 +25,7 @@ const GeoMap = () => {
       createAdvancedMarker();
     },
     // eslint-disable-next-line
-    [center, mapRef, travelMode]
+    [center, mapRef, travelMode, radius]
   );
 
   useEffect(
@@ -164,20 +165,28 @@ const GeoMap = () => {
         <div>Loading map... Allow to get your location</div>
       ) : (
         <>
-          <select
-            value={travelMode}
-            className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg absolute bottom-2 z-10 ml-2"
-            onChange={({ target }) => seTravelMode(target.value as google.maps.TravelMode)}
-          >
-            {Object.keys(TRAVEL_MODE).map((mode) => (
-              <option value={mode} key={mode}>
-                {TRAVEL_MODE_MAPPER(mode as google.maps.TravelMode)}
-              </option>
-            ))}
-          </select>
+          <div className="absolute bottom-2 z-10 ml-2">
+            <select
+              value={travelMode}
+              className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg "
+              onChange={({ target }) => seTravelMode(target.value as google.maps.TravelMode)}
+            >
+              {Object.keys(TRAVEL_MODE).map((mode) => (
+                <option value={mode} key={mode}>
+                  {TRAVEL_MODE_MAPPER(mode as google.maps.TravelMode)}
+                </option>
+              ))}
+            </select>
+            <input
+              className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg"
+              placeholder="Search radius in km"
+              value={radius}
+              onChange={({ target }) => setRadius(target.value)}
+            />
+          </div>
           <div className="flex justify-center">
             <SearchBox
-              inputClass="absolute z-10 mt-12 w-[95%] mt-2 md:mt-2 p-2"
+              inputClass="absolute z-10 mt-12 w-[95%] mt-2 md:mt-2"
               onPlacesChanged={(values) => {
                 const geo = values[0].geometry;
                 if (geo) {
