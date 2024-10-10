@@ -1,0 +1,17 @@
+{
+    "CHANGE_CURRENT_LOCATION": "Change current location",
+    "SEARCH_RADIUS_KM": "Search radius in km",
+    "DRIVING": "Driving",
+    "WALKING":"Foot",
+    "TRANSIT":"Public transport",
+    "BICYCLING":"Cycling",
+    "LOCATION":"Location",
+    "BY":"By",
+    "DISTANCE":"Distance",
+    "TIME":"Time",
+    "SELECT":"Select",
+    "ADVANCED_SETTING":"Advance setting",
+    "NOTIFICATIONS":"Notifications",
+    "SIGN_OUT":"Sign out",
+    "MANAGE_ACCOUNT":"Manage account"
+}

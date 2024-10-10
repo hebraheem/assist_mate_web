@@ -1,0 +1,100 @@
+{
+  "en-US": {
+    "shortName": "USA",
+    "longName": "United States of America",
+    "currency": {
+      "code": "USD",
+      "name": "United States Dollar"
+    },
+    "timeZone": "America/New_York",
+    "numberFormat": {
+      "decimalSeparator": ".",
+      "thousandsSeparator": ","
+    },
+    "dateFormat": "MM/DD/YYYY"
+  },
+  "en-GB": {
+    "shortName": "UK",
+    "longName": "United Kingdom of Great Britain and Northern Ireland",
+    "currency": {
+      "code": "GBP",
+      "name": "Pound Sterling"
+    },
+    "timeZone": "Europe/London",
+    "numberFormat": {
+      "decimalSeparator": ".",
+      "thousandsSeparator": ","
+    },
+    "dateFormat": "DD/MM/YYYY"
+  },
+  "fr-FR": {
+    "shortName": "France",
+    "longName": "French Republic",
+    "currency": {
+      "code": "EUR",
+      "name": "Euro"
+    },
+    "timeZone": "Europe/Paris",
+    "numberFormat": {
+      "decimalSeparator": ",",
+      "thousandsSeparator": " "
+    },
+    "dateFormat": "DD/MM/YYYY"
+  },
+  "de-DE": {
+    "shortName": "Germany",
+    "longName": "Federal Republic of Germany",
+    "currency": {
+      "code": "EUR",
+      "name": "Euro"
+    },
+    "timeZone": "Europe/Berlin",
+    "numberFormat": {
+      "decimalSeparator": ",",
+      "thousandsSeparator": "."
+    },
+    "dateFormat": "DD.MM.YYYY"
+  },
+  "ja-JP": {
+    "shortName": "Japan",
+    "longName": "Japan",
+    "currency": {
+      "code": "JPY",
+      "name": "Japanese Yen"
+    },
+    "timeZone": "Asia/Tokyo",
+    "numberFormat": {
+      "decimalSeparator": ".",
+      "thousandsSeparator": ","
+    },
+    "dateFormat": "YYYY/MM/DD"
+  },
+  "zh-CN": {
+    "shortName": "China",
+    "longName": "People's Republic of China",
+    "currency": {
+      "code": "CNY",
+      "name": "Chinese Yuan"
+    },
+    "timeZone": "Asia/Shanghai",
+    "numberFormat": {
+      "decimalSeparator": ".",
+      "thousandsSeparator": ","
+    },
+    "dateFormat": "YYYY-MM-DD"
+  },
+  "es-ES": {
+    "shortName": "Spain",
+    "longName": "Kingdom of Spain",
+    "currency": {
+      "code": "EUR",
+      "name": "Euro"
+    },
+    "timeZone": "Europe/Madrid",
+    "numberFormat": {
+      "decimalSeparator": ",",
+      "thousandsSeparator": "."
+    },
+    "dateFormat": "DD/MM/YYYY"
+  }
+}

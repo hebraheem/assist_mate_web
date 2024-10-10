@@ -8,6 +8,7 @@ const SignUpClerk = () => {
       signInUrl={publicUrls.SIGN_IN}
       path={publicUrls.SING_UP}
       appearance={{
+        layout: { unsafe_disableDevelopmentModeWarnings: true },
         elements: {
           formButtonPrimary: 'bg-slate-500 hover:bg-slate-400 text-sm',
         },

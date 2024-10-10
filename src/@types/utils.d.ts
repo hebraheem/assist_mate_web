@@ -20,3 +20,21 @@ export interface IHeatmap {
     opacity?: number;
   };
 }
+
+export interface ICountryInfo {
+  shortName?: string;
+  longName?: string;
+  currency?: ICurrency;
+  timeZone?: string;
+  numberFormat?: INumberFormat;
+  dateFormat?: string;
+  code?: string;
+}
+export interface ICurrency {
+  code?: string;
+  name?: string;
+}
+export interface INumberFormat {
+  decimalSeparator?: string;
+  thousandsSeparator?: string;
+}

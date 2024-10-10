@@ -10,6 +10,7 @@ import { useUser } from '@clerk/clerk-react';
 import { noUserImage } from '../../utils/constant';
 import { TRAVEL_MODE } from '../../constants/enum';
 import { TRAVEL_MODE_MAPPER } from '../../utils/methods/helpers';
+import { useI18n } from '../../services/languages/i18fn';
 
 const GeoMap = () => {
   const { user } = useUser() ?? { hasImage: false, imageUrl: '' };
@@ -18,6 +19,7 @@ const GeoMap = () => {
   const [radius, setRadius] = useState<number | string>('');
   const mapRef = useRef<MapWithMarkers | null>(null);
   const [travelMode, seTravelMode] = useState<google.maps.TravelMode>(TRAVEL_MODE.WALKING);
+  const i18n = useI18n();
 
   useEffect(
     () => {
@@ -116,12 +118,12 @@ const GeoMap = () => {
         infoWindow.setContent(
           `<div>
             <p class='font-medium text-xl'>${user.fullName}</p>
-            <p class='font-medium'>Location: ${distance.originAddresses[0]}</p>
-            <p class='font-medium'>By: ${TRAVEL_MODE_MAPPER(travelMode)}</p>
-            <p class='font-bold'>Distance: ${distance.rows[0].elements[0].distance.text}</p>
+            <p class='font-medium'>${i18n.msg('LOCATION')}: ${distance.originAddresses[0]}</p>
+            <p class='font-medium'>${i18n.msg('BY')}: ${TRAVEL_MODE_MAPPER(travelMode)}</p>
+            <p class='font-bold'>${i18n.msg('DISTANCE')}: ${distance.rows[0].elements[0].distance.text}</p>
             <div class='flex justify-between items-center'>
-            <p class='font-bold'>Time: ${distance.rows[0].elements[0].duration.text} </p>
-            <button class='border-2 border-slate-400 rounded-lg p-1'>Select</button>
+            <p class='font-bold'>${i18n.msg('TIME')}: ${distance.rows[0].elements[0].duration.text} </p>
+            <button class='border-2 border-slate-400 rounded-lg p-1'>${i18n.msg('SELECT')}</button>
             </div>
             </div>`
         );
@@ -173,13 +175,13 @@ const GeoMap = () => {
             >
               {Object.keys(TRAVEL_MODE).map((mode) => (
                 <option value={mode} key={mode}>
-                  {TRAVEL_MODE_MAPPER(mode as google.maps.TravelMode)}
+                  {i18n.msg(mode)}
                 </option>
               ))}
             </select>
             <input
               className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg"
-              placeholder="Search radius in km"
+              placeholder={i18n.msg('SEARCH_RADIUS_KM')}
               value={radius}
               onChange={({ target }) => setRadius(target.value)}
             />
@@ -191,8 +193,8 @@ const GeoMap = () => {
                 const geo = values[0].geometry;
                 if (geo) {
                   setCenter({
-                    lat: geo.location.lat() as number,
-                    lng: geo.location.lng() as number,
+                    lat: geo.location?.lat() as number,
+                    lng: geo.location?.lng() as number,
                   });
                 }
               }}

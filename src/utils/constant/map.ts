@@ -1,1 +1,1 @@
-export const MAP_ID = '8ef3ebde002ace9e';
+export const MAP_ID = process.env.REACT_APP_MAP_ID;

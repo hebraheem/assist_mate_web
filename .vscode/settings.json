@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["mapcapabilities", "nocheck", "Parens", "svgs"],
+  "cSpell.words": ["languagedetector", "localstorage", "mapcapabilities", "nocheck", "Parens", "svgs"],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
