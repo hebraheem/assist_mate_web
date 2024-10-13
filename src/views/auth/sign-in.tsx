@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Input from '../../components/forms/Input';
 import { IUser } from '../../@types/user';
 import { useI18n } from '../../services/languages/i18fn';
-import Button from '../../components/button';
+import Button from '../../components/ui/button';
 import { useSignWithEmail } from '../../services/mutations/user-auth';
 import { useNavigate } from 'react-router-dom';
 import { privateUrls, publicUrls } from '../../routes/urls';
@@ -63,9 +63,10 @@ const SignInClerk = () => {
           wrapperClass="mt-6 mx-3"
           label={i18n.msg('LOGIN')}
           onClick={() => mutate(user as any)}
-          className="p-1 hover:bg-slate-400"
+          className="p-1  bg-slate-500 text-white hover:bg-slate-400"
         />
       </form>
+
       <div className="text-center my-6">
         <p>
           {i18n.msg('DONT_HAVE_ACCOUNT')}{' '}

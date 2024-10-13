@@ -38,6 +38,16 @@ export interface ITextareaProps {
   rest?: JSX.IntrinsicElements['textarea'];
 }
 
+export interface ICheckInputProps {
+  onChange: (...arg) => void;
+  checked: boolean;
+  label?: string;
+  className?: classname;
+  wrapperClass?: classname;
+  id: string;
+  rest?: JSX.IntrinsicElements['input'];
+}
+
 export interface ISelectProps {
   onChange: (...arg) => void;
   focusedEvent?: (...arg) => void;

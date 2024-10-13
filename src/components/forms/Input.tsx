@@ -1,7 +1,8 @@
 import { HTMLInputTypeAttribute, useEffect, useState } from 'react';
 import { IInputProps } from '../../@types/form-fields';
 import { separateAndCapitalize, validateInput } from '../../utils/methods/helpers';
-import Button from '../button';
+import Button from '../ui/button';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Input = ({
   onChange,
@@ -75,13 +76,7 @@ const Input = ({
         type="button"
         isError={(!value || (!validateInput(value, pattern as any) && pattern !== undefined)) && Boolean(required)}
         iconPre
-        icon={() =>
-          showPassword ? (
-            <span className="material-symbols-outlined">u</span>
-          ) : (
-            <span className="material-symbols-outlined">i</span>
-          )
-        }
+        icon={() => (showPassword ? <EyeOff /> : <Eye />)}
       />
     );
   };

@@ -3,7 +3,7 @@ import Input from '../../components/forms/Input';
 import { defaultUser } from '../../utils/constant/defaultData';
 import { IUser } from '../../@types/user';
 import { useI18n } from '../../services/languages/i18fn';
-import Button from '../../components/button';
+import Button from '../../components/ui/button';
 import { useCreateWithEmail } from '../../services/mutations/user-auth';
 import { useNavigate } from 'react-router-dom';
 import { privateUrls, publicUrls } from '../../routes/urls';
@@ -93,7 +93,7 @@ const SignUpClerk = () => {
           wrapperClass="mt-6 mx-3"
           label={i18n.msg('CREATE_USER_ACCOUNT')}
           onClick={() => mutate(user as any)}
-          className="p-1 hover:bg-slate-400"
+          className="p-1  bg-slate-500 text-white hover:bg-slate-400"
         />
       </form>
       <div className="text-center my-6">

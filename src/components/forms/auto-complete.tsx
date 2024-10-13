@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Input from './Input';
-import Button from '../button';
+import Button from '../ui/button';
 import useClickOutside from '../../hooks/use-clickout';
 
 const Autocomplete = ({

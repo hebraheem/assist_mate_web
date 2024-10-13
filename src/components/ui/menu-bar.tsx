@@ -3,7 +3,7 @@ import { ChevronRightIcon } from 'lucide-react';
 import React from 'react';
 import { ISMenu } from 'src/@types/shadcn';
 
-const MenubarDemo = ({
+const MenubarComponent = ({
   menu,
   rootClassName,
   root,
@@ -83,4 +83,4 @@ const MenubarDemo = ({
   );
 };
 
-export default MenubarDemo;
+export default MenubarComponent;

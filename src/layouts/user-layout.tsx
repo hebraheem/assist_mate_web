@@ -56,6 +56,7 @@ const UserLayout = () => {
               menuTrigger={<img src={photoUrl} alt="user-photo" className="w-full h-8 object-fill rounded-full" />}
               rootClassName="rounded-full"
               itemClass="text-sm"
+              contentClass="z-30"
               menubarItems={[
                 {
                   key: 'Profile',

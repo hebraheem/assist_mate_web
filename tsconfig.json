@@ -16,11 +16,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "paths": {
-      // "@/*": ["./src/*"]
-    },
+    // "paths": {
+    //   // "@/*": ["./src/*"]
+    // },
     "incremental": true,
-    "tsBuildInfoFile": "node_modules/.cache/tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "node_modules/.cache/tsconfig.tsbuildinfo",
+    "types": ["node", "react", "react-dom", "@storybook/react"]
   },
   "include": ["src", "src/@types"],
   "exclude": ["node_modules"]
