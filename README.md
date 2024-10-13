@@ -245,4 +245,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Feel free to adjust this README template based on your project specifics, such as adding additional libraries or features you are working with.
+Feel free to adjust this README template based on the project, such as adding additional libraries or features you are worked on.
