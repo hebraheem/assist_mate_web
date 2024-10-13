@@ -1,7 +1,5 @@
-import { UserProfile } from '@clerk/clerk-react';
-
 const Profile = () => {
-  return <UserProfile />;
+  return <div>profile</div>;
 };
 
 export default Profile;

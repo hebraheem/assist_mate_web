@@ -1,5 +1,17 @@
 {
-  "cSpell.words": ["languagedetector", "localstorage", "mapcapabilities", "nocheck", "Parens", "svgs"],
+  "cSpell.words": [
+    "clickout",
+    "FIRBASE",
+    "Firestore",
+    "languagedetector",
+    "localstorage",
+    "mapcapabilities",
+    "MESSANGER",
+    "nocheck",
+    "Parens",
+    "svgs",
+    "tanstack"
+  ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {

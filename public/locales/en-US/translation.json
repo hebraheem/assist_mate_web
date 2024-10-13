@@ -13,5 +13,17 @@
     "ADVANCED_SETTING":"Advance setting",
     "NOTIFICATIONS":"Notifications",
     "SIGN_OUT":"Sign out",
-    "MANAGE_ACCOUNT":"Manage account"
+    "MANAGE_ACCOUNT":"Manage account",
+    "FIRST_NAME":"First name",
+    "LAST_NAME":"Last name",
+    "USERNAME":"Username",
+    "EMAIL_ADDRESS":"Email address",
+    "PASSWORD":"Password",
+    "WELCOME_NOTE":"Welcome! Please fill in the details to get started.",
+    "ALREADY_ACCOUNT":"All ready have an account?",
+    "SIGNIN":"sign in",
+    "SIGNUP":"sign up",
+    "CREATE_ACCOUNT":"Create your account",
+    "CREATE_USER_ACCOUNT":"Create account",
+    "LOGIN":"Login"
 }

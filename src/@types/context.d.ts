@@ -11,5 +11,7 @@ export interface IBasicChild {
 export interface IAuthData {
   token: string | null;
   isAuthenticated: boolean;
-  user: UseAuthReturn;
+  user?: UseAuthReturn;
+  error?: any;
+  isLoading: boolean;
 }

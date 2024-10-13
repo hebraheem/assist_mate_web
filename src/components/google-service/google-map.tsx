@@ -6,14 +6,13 @@ import { GoogleMap } from '@react-google-maps/api';
 import { LatLng, MapWithMarkers } from '../../@types/maps';
 import { markersData } from '../../utils/mocks';
 import { MAP_ID } from '../../utils/constant/map';
-import { useUser } from '@clerk/clerk-react';
 import { noUserImage } from '../../utils/constant';
 import { TRAVEL_MODE } from '../../constants/enum';
 import { TRAVEL_MODE_MAPPER } from '../../utils/methods/helpers';
 import { useI18n } from '../../services/languages/i18fn';
 
 const GeoMap = () => {
-  const { user } = useUser() ?? { hasImage: false, imageUrl: '' };
+  const user = { hasImage: false, imageUrl: '' };
   const { latitude, longitude, error } = useUserLocation();
   const [center, setCenter] = useState<LatLng>();
   const [radius, setRadius] = useState<number | string>('');

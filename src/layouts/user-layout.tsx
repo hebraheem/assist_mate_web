@@ -1,16 +1,14 @@
-import { useAuth, UserButton } from '@clerk/clerk-react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { privateUrls, publicUrls } from '../routes/urls';
 import { Suspense, useEffect, useState } from 'react';
-import { DotIcon } from '../constants/svgs/dot-icon';
-import { AdvanceSettingIcon } from '../constants/svgs/settings';
 import { useI18n } from '../services/languages/i18fn';
 import { SUPPORTED_LOCALE } from '../utils/constant';
+import useAuthentication from '../auth/useAuthentication';
+import { privateUrls, publicUrls } from '../routes/urls';
 
 const UserLayout = () => {
-  const { isLoaded, isSignedIn } = useAuth();
   const [lang, setLang] = useState<string>();
   const i18n = useI18n();
+  const { isLoading, isAuthenticated } = useAuthentication();
 
   useEffect(
     () => {
@@ -20,10 +18,9 @@ const UserLayout = () => {
     []
   );
 
-  if (!isLoaded) return <Suspense fallback={'loading...'} />;
-
-  if (isLoaded && !isSignedIn) return <Navigate to={publicUrls.SIGN_IN} />;
-  if (isLoaded && isSignedIn && window.location.pathname === '/') return <Navigate to={privateUrls.HOME} />;
+  if (isLoading) return <Suspense fallback={'loading...'} />;
+  if (!isAuthenticated) return <Navigate to={publicUrls.SIGN_IN} />;
+  if (isAuthenticated && window.location.pathname === '/') return <Navigate to={privateUrls.HOME} />;
 
   return (
     <div className="">
@@ -52,25 +49,6 @@ const UserLayout = () => {
             <span className="material-icons text-red-700 text-[14px] absolute right-[-2px] top-[-5px] z-10">
               notifications
             </span>
-            <UserButton
-              afterSignOutUrl={publicUrls.SIGN_IN}
-              appearance={{ layout: { unsafe_disableDevelopmentModeWarnings: true } }}
-            >
-              <UserButton.MenuItems>
-                <UserButton.Link
-                  label="Advance settings"
-                  labelIcon={<AdvanceSettingIcon />}
-                  href={privateUrls.SETTINGS}
-                />
-                <UserButton.Action label="Notification" labelIcon={<DotIcon />} open={privateUrls.NOTIFICATION} />
-              </UserButton.MenuItems>
-              <UserButton.UserProfilePage label="Notifications" labelIcon={<DotIcon />} url={privateUrls.NOTIFICATION}>
-                <div>
-                  <h1>Help Page</h1>
-                  <p>This is the custom help page</p>
-                </div>
-              </UserButton.UserProfilePage>
-            </UserButton>
           </div>
         </div>
       </div>

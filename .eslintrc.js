@@ -43,4 +43,5 @@ module.exports = {
     browser: true,
     es2024: true,
   },
+  ignorePatterns: ['node_modules/'],
 };
