@@ -7,6 +7,8 @@ import Button from '../../components/ui/button';
 import { useCreateWithEmail } from '../../services/mutations/user-auth';
 import { useNavigate } from 'react-router-dom';
 import { privateUrls, publicUrls } from '../../routes/urls';
+import { toast } from 'react-toastify';
+import { errorTransform } from 'src/utils/methods/helpers';
 
 const SignUpClerk = () => {
   const [user, setUser] = useState<IUser>(defaultUser);
@@ -20,7 +22,7 @@ const SignUpClerk = () => {
       }
     },
     onError: (err) => {
-      alert(err.message);
+      toast(errorTransform(err.message), { type: 'error' });
     },
   });
 

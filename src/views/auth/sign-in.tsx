@@ -7,6 +7,8 @@ import { useSignWithEmail } from '../../services/mutations/user-auth';
 import { useNavigate } from 'react-router-dom';
 import { privateUrls, publicUrls } from '../../routes/urls';
 import { defaultUser } from '../../utils/constant/defaultData';
+import { toast } from 'react-toastify';
+import { errorTransform } from 'src/utils/methods/helpers';
 
 const SignInClerk = () => {
   const [user, setUser] = useState<IUser>(defaultUser);
@@ -19,7 +21,7 @@ const SignInClerk = () => {
       }
     },
     onError: (err) => {
-      alert(err.message);
+      toast(errorTransform(err.message), { type: 'error' });
     },
   });
 
@@ -30,8 +32,13 @@ const SignInClerk = () => {
         <p className="text-sm">{i18n.msg('WELCOME_BACK')}</p>
       </div>
       <div className="flex justify-between items-center mb-3 mx-3 gap-3">
-        <Button label="Apple" onClick={() => console.log('Google')} wrapperClass="w-full" className="w-full p-1" />
-        <Button label="Google" onClick={() => console.log('Apple')} wrapperClass="w-full" className="w-full p-1" />
+        <Button
+          label="Apple"
+          onClick={() => console.log('Apple')}
+          wrapperClass="w-full"
+          className="w-full p-1 border-0 shadow-inner"
+        />
+        <Button label="Google" onClick={() => console.log('Google')} wrapperClass="w-full" className="w-full p-1" />
       </div>
       <div className="flex justify-between items-center gap-3 mx-5 mb-3">
         <hr className="w-full" /> or <hr className="w-full" />

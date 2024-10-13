@@ -53,7 +53,7 @@ const UserLayout = () => {
           </select>
           <div className="relative">
             <MenubarComponent
-              menuTrigger={<img src={photoUrl} alt="user-photo" className="w-full h-8 object-fill rounded-full" />}
+              menuTrigger={<img src={photoUrl} alt="user-photo" className="w-8 h-8 object-fill rounded-full" />}
               rootClassName="rounded-full"
               itemClass="text-sm"
               contentClass="z-30"

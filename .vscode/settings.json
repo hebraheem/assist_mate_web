@@ -15,6 +15,7 @@
     "shadcn",
     "svgs",
     "tanstack",
+    "toastify",
     "tsbuildinfo"
   ],
   "editor.formatOnSave": true,

@@ -10,16 +10,20 @@ import { noUserImage } from '../../utils/constant';
 import { TRAVEL_MODE } from '../../constants/enum';
 import { TRAVEL_MODE_MAPPER } from '../../utils/methods/helpers';
 import { useI18n } from '../../services/languages/i18fn';
+import Button from '../ui/button';
+import useClickOutside from 'src/hooks/use-clickout';
 
 const GeoMap = () => {
   const user = { hasImage: false, imageUrl: '' };
   const { latitude, longitude, error } = useUserLocation();
   const [center, setCenter] = useState<LatLng>();
+  const [openSearchConfig, setOpenSearchConfig] = useState<boolean>(false);
   const [radius, setRadius] = useState<number | string>('');
   const mapRef = useRef<MapWithMarkers | null>(null);
   const [travelMode, seTravelMode] = useState<google.maps.TravelMode>(TRAVEL_MODE.WALKING);
   const i18n = useI18n();
 
+  const ref = useClickOutside<HTMLDivElement>(() => setOpenSearchConfig(false));
   useEffect(
     () => {
       if (!center?.lat || !center?.lng || !mapRef?.current) return;
@@ -122,7 +126,7 @@ const GeoMap = () => {
             <p class='font-bold'>${i18n.msg('DISTANCE')}: ${distance.rows[0].elements[0].distance.text}</p>
             <div class='flex justify-between items-center'>
             <p class='font-bold'>${i18n.msg('TIME')}: ${distance.rows[0].elements[0].duration.text} </p>
-            <button class='border-2 border-slate-400 rounded-lg p-1'>${i18n.msg('SELECT')}</button>
+            <button class='border-2 border-slate-400 rounded-lg p-1'>${i18n.msg('PROFILE')}</button>
             </div>
             </div>`
         );
@@ -166,28 +170,9 @@ const GeoMap = () => {
         <div>Loading map... Allow to get your location</div>
       ) : (
         <>
-          <div className="absolute bottom-2 z-10 ml-2">
-            <select
-              value={travelMode}
-              className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg "
-              onChange={({ target }) => seTravelMode(target.value as google.maps.TravelMode)}
-            >
-              {Object.keys(TRAVEL_MODE).map((mode) => (
-                <option value={mode} key={mode}>
-                  {i18n.msg(mode)}
-                </option>
-              ))}
-            </select>
-            <input
-              className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg"
-              placeholder={i18n.msg('SEARCH_RADIUS_KM')}
-              value={radius}
-              onChange={({ target }) => setRadius(target.value)}
-            />
-          </div>
           <div className="flex justify-center">
             <SearchBox
-              inputClass="absolute z-10 mt-12 w-[95%] mt-2 md:mt-2"
+              inputClass="absolute z-10 mt-12 w-[95%] p-2 mt-2 md:mt-2"
               onPlacesChanged={(values) => {
                 const geo = values[0].geometry;
                 if (geo) {
@@ -210,6 +195,48 @@ const GeoMap = () => {
               createAdvancedMarker();
             }}
           />
+          <div className="absolute bottom-1 left-1">
+            <Button
+              label={i18n.msg('FIND')}
+              className="bg-slate-500 outline-none hover:bg-slate-400 text-sm text-white p-2 border-0"
+              onClick={() => setOpenSearchConfig(!openSearchConfig)}
+            />
+          </div>
+          {openSearchConfig && (
+            <div
+              className="flex gap-3 z-10 absolute justify-start px-3 flex-col shadow-lg bg-slate-50 border-2 p-3 max-w-[250px] rounded-lg"
+              ref={ref}
+            >
+              {/* <div className="flex justify-start items-center gap-3 bg-slate-50"> */}
+              <div>
+                <select
+                  value={travelMode}
+                  className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg "
+                  onChange={({ target }) => seTravelMode(target.value as google.maps.TravelMode)}
+                >
+                  {Object.keys(TRAVEL_MODE).map((mode) => (
+                    <option value={mode} key={mode}>
+                      {i18n.msg(mode)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <input
+                  className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg w-full"
+                  placeholder={i18n.msg('SEARCH_RADIUS_KM')}
+                  value={radius}
+                  onChange={({ target }) => setRadius(target.value)}
+                />
+              </div>
+              {/* </div> */}
+              {/* <Button
+                className="p-2 bg-slate-500 text-sm text-white border-0 content"
+                label={i18n.msg('REQUEST_HELP')}
+                onClick={() => console.log('requesting...')}
+              /> */}
+            </div>
+          )}
         </>
       )}
     </div>

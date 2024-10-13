@@ -69,3 +69,7 @@ export function separateAndCapitalize(input: string | undefined): string | undef
 
   return result;
 }
+
+export const errorTransform = (err: string): string => {
+  return err?.replace(/Firebase:/g, '');
+};
