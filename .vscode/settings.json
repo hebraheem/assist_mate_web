@@ -1,16 +1,21 @@
 {
   "cSpell.words": [
+    "classname",
     "clickout",
+    "clsx",
     "FIRBASE",
     "Firestore",
     "languagedetector",
     "localstorage",
+    "lucide",
     "mapcapabilities",
     "MESSANGER",
     "nocheck",
     "Parens",
+    "shadcn",
     "svgs",
-    "tanstack"
+    "tanstack",
+    "tsbuildinfo"
   ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",

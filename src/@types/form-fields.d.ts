@@ -2,8 +2,8 @@ export interface IButtonProps {
   onClick: (...arg) => void;
   label: string;
   icon?: (...arg) => JSX.Element;
-  className?: string;
-  wrapperClass?: HTMLAttributes<HTMLDivElement>['className'];
+  className?: classname;
+  wrapperClass?: classname;
   iconPre?: boolean;
   iconPost?: boolean;
   isError?: boolean;
@@ -18,10 +18,10 @@ export interface IInputProps {
   blurEvent?: (...arg) => void;
   placeholder: string;
   value: string;
-  className?: string;
+  className?: classname;
   label?: string;
-  wrapperClass?: string;
-  endAdornmentClass?: string;
+  wrapperClass?: classname;
+  endAdornmentClass?: classname;
   type?: HTMLInputTypeAttribute | undefined;
   rest?: JSX.IntrinsicElements['input'];
 }
@@ -33,8 +33,8 @@ export interface ITextareaProps {
   placeholder: string;
   value: string;
   label?: string;
-  className?: string;
-  wrapperClass?: string;
+  className?: classname;
+  wrapperClass?: classname;
   rest?: JSX.IntrinsicElements['textarea'];
 }
 
@@ -45,8 +45,8 @@ export interface ISelectProps {
   placeholder: string;
   value: string;
   label?: string;
-  className?: string;
-  wrapperClass?: string;
+  className?: classname;
+  wrapperClass?: classname;
   showEmpty?: boolean;
   rest?: JSX.IntrinsicElements['select'];
   renderOptions: (...arg) => ReactI18NextChildren | Iterable<ReactI18NextChildren>;

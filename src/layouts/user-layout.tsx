@@ -1,14 +1,19 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { Suspense, useEffect, useState } from 'react';
+
 import { useI18n } from '../services/languages/i18fn';
-import { SUPPORTED_LOCALE } from '../utils/constant';
+import { noUserImage, SUPPORTED_LOCALE } from '../utils/constant';
 import useAuthentication from '../auth/useAuthentication';
 import { privateUrls, publicUrls } from '../routes/urls';
+import MenubarComponent from '../components/ui/menu-bar';
+import { BellDotIcon, LogOut, Settings, User } from 'lucide-react';
+import { logout } from 'src/services/serviceFn/users';
 
 const UserLayout = () => {
   const [lang, setLang] = useState<string>();
+  const navigate = useNavigate();
   const i18n = useI18n();
-  const { isLoading, isAuthenticated } = useAuthentication();
+  const { isLoading, isAuthenticated, user } = useAuthentication();
 
   useEffect(
     () => {
@@ -22,6 +27,7 @@ const UserLayout = () => {
   if (!isAuthenticated) return <Navigate to={publicUrls.SIGN_IN} />;
   if (isAuthenticated && window.location.pathname === '/') return <Navigate to={privateUrls.HOME} />;
 
+  const photoUrl = user?.photoUrl ?? noUserImage;
   return (
     <div className="">
       <div className="h-16 w-100 flex justify-between items-center px-[16px] bg-slate-100">
@@ -29,7 +35,7 @@ const UserLayout = () => {
         <div className="flex items-center">
           <select
             value={lang}
-            className="p-2 rounded-lg mr-3"
+            className="p-2 rounded-lg mr-3 focus:outline-none"
             onChange={({ target }) => {
               i18n.updateLocale(target.value, (value) => {
                 if (value) {
@@ -46,9 +52,42 @@ const UserLayout = () => {
             ))}
           </select>
           <div className="relative">
-            <span className="material-icons text-red-700 text-[14px] absolute right-[-2px] top-[-5px] z-10">
-              notifications
-            </span>
+            <MenubarComponent
+              menuTrigger={<img src={photoUrl} alt="user-photo" className="w-full h-8 object-fill rounded-full" />}
+              rootClassName="rounded-full"
+              itemClass="text-sm"
+              menubarItems={[
+                {
+                  key: 'Profile',
+                  label: i18n.msg('PROFILE'),
+                  icon: <User className="text-sm" />,
+                  itemProp: {
+                    onClick: () => navigate(privateUrls.PROFILE),
+                  },
+                },
+                {
+                  key: 'settings',
+                  label: i18n.msg('SETTINGS'),
+                  icon: <Settings className="text-sm" />,
+                  itemProp: {
+                    onClick: () => navigate(privateUrls.SETTINGS),
+                  },
+                },
+                { key: 'Notifications', label: i18n.msg('NOTIFICATIONS'), icon: <BellDotIcon className="text-sm" /> },
+                {
+                  key: 'SIGN-OUT',
+                  label: i18n.msg('SIGN_OUT'),
+                  icon: <LogOut />,
+                  itemProp: {
+                    onClick: () => {
+                      logout();
+                      navigate(publicUrls.SIGN_IN);
+                    },
+                  },
+                },
+              ]}
+            />
+            <span className="material-icons text-red-700 text-[14px] absolute right-1 top-1 z-10">notifications</span>
           </div>
         </div>
       </div>
