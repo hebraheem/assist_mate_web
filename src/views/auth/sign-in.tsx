@@ -36,9 +36,14 @@ const SignInClerk = () => {
           label="Apple"
           onClick={() => console.log('Apple')}
           wrapperClass="w-full"
-          className="w-full p-1 border-0 shadow-inner"
+          className="w-full p-1 shadow-inner"
         />
-        <Button label="Google" onClick={() => console.log('Google')} wrapperClass="w-full" className="w-full p-1" />
+        <Button
+          label="Google"
+          onClick={() => console.log('Google')}
+          wrapperClass="w-full"
+          className="w-full p-1 shadow-inner"
+        />
       </div>
       <div className="flex justify-between items-center gap-3 mx-5 mb-3">
         <hr className="w-full" /> or <hr className="w-full" />

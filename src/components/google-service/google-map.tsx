@@ -11,7 +11,8 @@ import { TRAVEL_MODE } from '../../constants/enum';
 import { TRAVEL_MODE_MAPPER } from '../../utils/methods/helpers';
 import { useI18n } from '../../services/languages/i18fn';
 import Button from '../ui/button';
-import useClickOutside from 'src/hooks/use-clickout';
+import { useNavigate } from 'react-router-dom';
+import { privateUrls } from 'src/routes/urls';
 
 const GeoMap = () => {
   const user = { hasImage: false, imageUrl: '' };
@@ -22,8 +23,8 @@ const GeoMap = () => {
   const mapRef = useRef<MapWithMarkers | null>(null);
   const [travelMode, seTravelMode] = useState<google.maps.TravelMode>(TRAVEL_MODE.WALKING);
   const i18n = useI18n();
+  const navigate = useNavigate();
 
-  const ref = useClickOutside<HTMLDivElement>(() => setOpenSearchConfig(false));
   useEffect(
     () => {
       if (!center?.lat || !center?.lng || !mapRef?.current) return;
@@ -126,10 +127,19 @@ const GeoMap = () => {
             <p class='font-bold'>${i18n.msg('DISTANCE')}: ${distance.rows[0].elements[0].distance.text}</p>
             <div class='flex justify-between items-center'>
             <p class='font-bold'>${i18n.msg('TIME')}: ${distance.rows[0].elements[0].duration.text} </p>
-            <button class='border-2 border-slate-400 rounded-lg p-1'>${i18n.msg('PROFILE')}</button>
+            <button id='profileButton' class='border-2 border-slate-400 rounded-lg p-1'>${i18n.msg('PROFILE')}</button>
             </div>
             </div>`
         );
+
+        google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
+          const btn = document.getElementById('profileButton');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              navigate(`${privateUrls.REQUEST}?user=${user.fullName}`);
+            });
+          }
+        });
         infoWindow.open(marker.map, marker);
       });
     });
@@ -203,15 +213,12 @@ const GeoMap = () => {
             />
           </div>
           {openSearchConfig && (
-            <div
-              className="flex gap-3 z-10 absolute justify-start px-3 flex-col shadow-lg bg-slate-50 border-2 p-3 max-w-[250px] rounded-lg"
-              ref={ref}
-            >
+            <div className="flex gap-3 z-10 absolute justify-start px-3 flex-col shadow-lg bg-slate-50 border-2 p-3 max-w-[250px] rounded-lg">
               {/* <div className="flex justify-start items-center gap-3 bg-slate-50"> */}
               <div>
                 <select
                   value={travelMode}
-                  className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg "
+                  className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg w-full"
                   onChange={({ target }) => seTravelMode(target.value as google.maps.TravelMode)}
                 >
                   {Object.keys(TRAVEL_MODE).map((mode) => (
@@ -223,6 +230,8 @@ const GeoMap = () => {
               </div>
               <div>
                 <input
+                  type="number"
+                  min={0}
                   className="border-2 border-slate-300 focus:border-blue-500 p-2 rounded-lg w-full"
                   placeholder={i18n.msg('SEARCH_RADIUS_KM')}
                   value={radius}

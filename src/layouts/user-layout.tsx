@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { Suspense, useEffect, useState } from 'react';
 
 import { useI18n } from '../services/languages/i18fn';
@@ -6,8 +6,15 @@ import { noUserImage, SUPPORTED_LOCALE } from '../utils/constant';
 import useAuthentication from '../auth/useAuthentication';
 import { privateUrls, publicUrls } from '../routes/urls';
 import MenubarComponent from '../components/ui/menu-bar';
-import { BellDotIcon, LogOut, Settings, User } from 'lucide-react';
+import { BellDotIcon, History, House, LogOut, MessageSquare, Settings, Settings2, User } from 'lucide-react';
 import { logout } from 'src/services/serviceFn/users';
+
+const navItem = [
+  { label: 'HOME', icon: <House />, href: privateUrls.HOME },
+  { label: 'HISTORY', icon: <History />, href: privateUrls.HISTORY },
+  { label: 'CHAT', icon: <MessageSquare />, href: privateUrls.NOTIFICATION },
+  { label: 'SETTINGS', icon: <Settings2 />, href: privateUrls.SETTINGS },
+];
 
 const UserLayout = () => {
   const [lang, setLang] = useState<string>();
@@ -31,7 +38,26 @@ const UserLayout = () => {
   return (
     <div className="">
       <div className="h-16 w-100 flex justify-between items-center px-[16px] bg-slate-100">
-        <div>Menu</div>
+        <div>
+          <button onClick={() => navigate(privateUrls.HOME)}>
+            <img src="./images/logo192.png" className="w-10 h-10 rounded-full cursor-pointer" alt="logo" />
+          </button>
+        </div>
+        <div className="md:flex hidden justify-between items-center gap-10">
+          {navItem.map((item) => {
+            const active = window.location.pathname.includes(item.href);
+            return (
+              <Link
+                to={item.href}
+                key={item.href}
+                role="button"
+                className={`flex flex-col items-center ${active && 'text-slate-500'}`}
+              >
+                <h4 className="text-sm">{item.label}</h4>
+              </Link>
+            );
+          })}
+        </div>
         <div className="flex items-center">
           <select
             value={lang}
@@ -62,19 +88,20 @@ const UserLayout = () => {
                   key: 'Profile',
                   label: i18n.msg('PROFILE'),
                   icon: <User className="text-sm" />,
-                  itemProp: {
-                    onClick: () => navigate(privateUrls.PROFILE),
-                  },
+                  itemProp: { onClick: () => navigate(privateUrls.PROFILE) },
                 },
                 {
                   key: 'settings',
                   label: i18n.msg('SETTINGS'),
                   icon: <Settings className="text-sm" />,
-                  itemProp: {
-                    onClick: () => navigate(privateUrls.SETTINGS),
-                  },
+                  itemProp: { onClick: () => navigate(privateUrls.SETTINGS) },
                 },
-                { key: 'Notifications', label: i18n.msg('NOTIFICATIONS'), icon: <BellDotIcon className="text-sm" /> },
+                {
+                  key: 'Notifications',
+                  label: i18n.msg('NOTIFICATIONS'),
+                  icon: <BellDotIcon className="text-sm" />,
+                  itemProp: { onClick: () => navigate(privateUrls.NOTIFICATION) },
+                },
                 {
                   key: 'SIGN-OUT',
                   label: i18n.msg('SIGN_OUT'),
@@ -93,6 +120,22 @@ const UserLayout = () => {
         </div>
       </div>
       <Outlet />
+      <div className="md:hidden flex justify-between w-full h-[56px] items-center fixed bottom-0 px-6 bg-slate-100 rounded-t-2xl">
+        {navItem.map((item) => {
+          const active = window.location.pathname.includes(item.href);
+          return (
+            <Link
+              to={item.href}
+              key={item.href}
+              role="button"
+              className={`flex flex-col items-center ${active && 'text-slate-500'}`}
+            >
+              {item.icon}
+              <h4 className="text-sm">{item.label}</h4>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 };
