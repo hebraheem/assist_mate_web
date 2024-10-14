@@ -141,8 +141,8 @@ src/
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-repo/AssistMate-Web.git
-   cd AssistMate-Web
+   git clone git@github.com:hebraheem/assist_mate_web.git
+   cd assist_mate_web
    ```
 
 2. **Install dependencies**:
@@ -245,4 +245,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Feel free to adjust this README template based on the project, such as adding additional libraries or features you are worked on.
+Feel free to adjust this README template based on the project, such as adding additional libraries or features you worked on.
