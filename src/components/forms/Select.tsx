@@ -60,6 +60,7 @@ const Select = ({
         value={value}
         className={`p-3 placeholder:text-sm placeholder:text-slate-300 w-full border-2 shadow-sm ${borderClass} focus:${errorClass} rounded-lg ${className ?? ''}`}
         {...rest}
+        data-testid={id}
       >
         {showEmpty ? <option></option> : null}
         {renderOptions()}

@@ -99,6 +99,7 @@ const Input = ({
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          data-testid={id}
           className={`p-2 placeholder:text-sm placeholder:text-slate-300 w-full block rounded-lg ${endAdornment || type === 'password' ? 'border-r-0 border-2 rounded-r-none' : 'border-2 shadow-sm'} ${borderClass} ${errorClass} ${className ?? ''}`}
           {...rest}
         />

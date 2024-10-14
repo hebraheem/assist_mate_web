@@ -15,6 +15,7 @@
     "shadcn",
     "svgs",
     "tanstack",
+    "testid",
     "toastify",
     "tsbuildinfo"
   ],

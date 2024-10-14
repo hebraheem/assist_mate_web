@@ -2,6 +2,7 @@ import { IUser } from '../../@types/user';
 
 export const defaultUser: IUser = {
   username: '',
+  bio: '',
   firstName: '',
   lastName: '',
   avatar: '',

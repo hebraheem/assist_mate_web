@@ -28,7 +28,7 @@ const Textarea = ({
   );
 
   const validate = () => {
-    if (value && Boolean(required)) {
+    if (!value && Boolean(required)) {
       setBorderClass('border-red-500');
       setErrorClass('focus:border-red-500');
       setErrorType({
@@ -51,13 +51,13 @@ const Textarea = ({
           if (focusedEvent) focusedEvent(evt);
         }}
         onBlur={(evt) => {
-          setIsTouched(false);
-          validate();
           if (blurEvent) blurEvent(evt);
+          validate();
         }}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
+        data-testid={id}
         className={`p-2 placeholder:text-sm placeholder:text-slate-300 w-full border-2 shadow-sm ${borderClass} ${errorClass} rounded-lg ${className ?? ''}`}
         {...rest}
       />

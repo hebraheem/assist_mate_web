@@ -120,7 +120,7 @@ const UserLayout = () => {
         </div>
       </div>
       <Outlet />
-      <div className="md:hidden flex justify-between w-full h-[56px] items-center fixed bottom-0 p-6 bg-slate-100 rounded-t-2xl">
+      <div className="md:hidden flex justify-between w-full items-center fixed bottom-0 p-6 bg-slate-100 rounded-t-2xl">
         {navItem.map((item) => {
           const active = window.location.pathname.includes(item.href);
           return (
