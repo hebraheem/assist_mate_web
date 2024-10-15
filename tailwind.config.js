@@ -1,18 +1,4 @@
 /* eslint-disable no-undef */
-
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-//   theme: {
-//     extend: {
-//       fontFamily: {
-//         // sans: ['Roboto', 'sans-serif'], // For Google Fonts example
-//       },
-//     },
-//   },
-//   plugins: [],
-// };
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
@@ -20,6 +6,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 module.exports = {
   darkMode: ['class'],
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', 'components/**/*.{ts,tsx}'],
+  purge: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', 'components/**/*.{ts,tsx}'],
   theme: {
     container: {
       center: true,

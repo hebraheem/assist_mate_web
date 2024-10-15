@@ -61,6 +61,7 @@ const UserLayout = () => {
         <div className="flex items-center">
           <select
             value={lang}
+            aria-label="language"
             className="p-2 rounded-lg mr-3 focus:outline-none"
             onChange={({ target }) => {
               i18n.updateLocale(target.value, (value) => {
@@ -115,12 +116,12 @@ const UserLayout = () => {
                 },
               ]}
             />
-            <span className="material-icons text-red-700 text-[14px] absolute right-1 top-1 z-10">notifications</span>
+            <span className="material-icons text-red-700 text-[14px] absolute right-1  top-1 z-10">notifications</span>
           </div>
         </div>
       </div>
       <Outlet />
-      <div className="md:hidden flex justify-between w-full items-center fixed bottom-0 p-6 bg-slate-100 rounded-t-2xl">
+      <div className="md:hidden flex justify-between px-6 py-3 w-full items-center fixed bottom-0 bg-slate-100 rounded-t-2xl">
         {navItem.map((item) => {
           const active = window.location.pathname.includes(item.href);
           return (
@@ -128,7 +129,7 @@ const UserLayout = () => {
               to={item.href}
               key={item.href}
               role="button"
-              className={`flex flex-col items-center ${active && 'text-slate-500'}`}
+              className={`flex flex-col items-center ${active && 'p-3 bg-slate-500 rounded-full text-white'}`}
             >
               {item.icon}
               <h4 className="text-sm">{item.label}</h4>

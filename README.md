@@ -177,6 +177,14 @@ src/
    yarn storybook
    ```
 
+   **Build css for storybook**:
+
+   ```bash
+   npm run build:tailwind
+   # or
+   yarn build:tailwind
+   ```
+
 ---
 
 ## Coding Conventions & Style Guide

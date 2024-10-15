@@ -52,7 +52,8 @@
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,md}'",
     "format_all": "prettier --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:tailwind": "npx tailwindcss -i ./src/index.css -o ./public/tailwind.css --watch"
   },
   "eslintConfig": {
     "extends": [

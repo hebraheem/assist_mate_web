@@ -146,6 +146,7 @@ const GeoMap = () => {
 
     const userImage = document.createElement('img');
     userImage.src = user?.hasImage ? user?.imageUrl : noUserImage;
+    userImage.alt = 'current-user';
     userImage.classList.add('w-full', 'h-full', 'rounded-full', 'contain');
     const userPin = new PinElement({
       scale: 1,
