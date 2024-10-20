@@ -10,7 +10,6 @@ const localeMap: { [key: string]: Locale } = {
   'fr-FR': fr,
   'de-DE': de,
   'ja-JP': ja,
-  // Add other locales as needed
 };
 
 export const useI18n = () => {

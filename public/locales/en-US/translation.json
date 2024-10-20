@@ -25,5 +25,10 @@
     "SIGNUP":"sign up",
     "CREATE_ACCOUNT":"Create your account",
     "CREATE_USER_ACCOUNT":"Create account",
-    "LOGIN":"Login"
+    "LOGIN":"Login",
+    "ENTER_EMAIL_TO_REST_PASSWORD" :"Enter your email address to reset the password",
+    "REQUEST_RESET_PASSWORD" :"Request password reset",
+    "LOGIN_TO_YOUR_ACCOUNT":"Login to <i><b>Assist mate</b></i>",
+    "WELCOME_BACK":"Welcome back! Please sign in to continue",
+    "DONT_HAVE_ACCOUNT":"Don't have an account yet?"
 }

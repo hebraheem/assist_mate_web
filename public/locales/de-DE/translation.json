@@ -25,5 +25,10 @@
     "SIGNUP":"Melden Sie sich an",
     "CREATE_ACCOUNT":"Erstellen Sie Ihr Konto",
     "CREATE_USER_ACCOUNT":"Benutzerkonto erstellen",
-    "LOGIN":"Login"
+    "LOGIN":"Login",
+    "ENTER_EMAIL_TO_REST_PASSWORD" :"Geben Sie die E-Mail-Adresse ein, um das Passwort zurückzusetzen",
+    "REQUEST_RESET_PASSWORD" :"Passwort zurücksetzen",
+    "LOGIN_TO_YOUR_ACCOUNT":"Einloggen auf <i><b>Assist mate</b></i>",
+    "WELCOME_BACK":"Willkommen zurück! Bitte melden Sie sich an, um fortzufahren",
+    "DONT_HAVE_ACCOUNT":"Sie haben noch kein Konto?"
 }

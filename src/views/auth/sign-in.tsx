@@ -28,9 +28,9 @@ const SignInClerk = () => {
   });
 
   return (
-    <div className=" text-white">
+    <div className="text-white">
       <div className="text-center mt-4 mb-6">
-        <h3 className="text-2xl">{i18n.msg('LOGIN_TO_YOUR_ACCOUNT')}</h3>
+        <h3 className="text-2xl" dangerouslySetInnerHTML={{ __html: i18n.msg('LOGIN_TO_YOUR_ACCOUNT') }} />
         <p className="text-sm">{i18n.msg('WELCOME_BACK')}</p>
       </div>
       <form onSubmit={(e) => e.preventDefault()}>
