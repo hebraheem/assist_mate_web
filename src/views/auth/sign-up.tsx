@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { privateUrls, publicUrls } from '../../routes/urls';
 import { toast } from 'react-toastify';
 import { errorTransform } from 'src/utils/methods/helpers';
+import AppleIcon from 'src/constants/svgs/apple';
+import GoogleIcon from 'src/constants/svgs/google';
 
 const SignUpClerk = () => {
   const [user, setUser] = useState<IUser>(defaultUser);
@@ -27,14 +29,28 @@ const SignUpClerk = () => {
   });
 
   return (
-    <div>
+    <div className="text-white">
       <div className="text-center mt-4 mb-6">
         <h3 className="text-2xl">{i18n.msg('CREATE_ACCOUNT')}</h3>
         <p className="text-sm">{i18n.msg('WELCOME_NOTE')}</p>
       </div>
       <div className="flex justify-between items-center mb-3 mx-3 gap-3">
-        <Button label="Apple" onClick={() => console.log('Google')} wrapperClass="w-full" className="w-full p-1" />
-        <Button label="Google" onClick={() => console.log('Apple')} wrapperClass="w-full" className="w-full p-1" />
+        <Button
+          label=""
+          icon={() => <AppleIcon />}
+          iconPre
+          onClick={() => console.log('Apple')}
+          wrapperClass="w-full"
+          className="w-full p-1 shadow-inner hover:bg-slate-100"
+        />
+        <Button
+          label=""
+          onClick={() => console.log('Google')}
+          icon={() => <GoogleIcon />}
+          iconPre
+          wrapperClass="w-full"
+          className="w-full p-1 shadow-inner  hover:bg-slate-100"
+        />
       </div>
       <div className="flex justify-between items-center gap-3 mx-5 mb-3">
         <hr className="w-full" /> or <hr className="w-full" />
@@ -44,7 +60,8 @@ const SignUpClerk = () => {
           <Input
             required
             id="firstName"
-            wrapperClass="w-full"
+            labelClass="text-white"
+            wrapperClass="w-full text-black"
             label={i18n.msg('FIRST_NAME')}
             value={user?.firstName as string}
             onChange={({ target }) => setUser((prev) => ({ ...prev, firstName: target.value }))}
@@ -53,7 +70,8 @@ const SignUpClerk = () => {
           <Input
             required
             id="lastName"
-            wrapperClass="w-full"
+            labelClass="text-white"
+            wrapperClass="w-full text-black"
             label={i18n.msg('LAST_NAME')}
             value={user?.lastName as string}
             onChange={({ target }) => setUser((prev) => ({ ...prev, lastName: target.value }))}
@@ -63,8 +81,9 @@ const SignUpClerk = () => {
         <Input
           required
           id="username"
+          labelClass="text-white"
           label={i18n.msg('USERNAME')}
-          wrapperClass="mb-3 mx-3"
+          wrapperClass="mb-3 mx-3 text-black"
           value={user?.username as string}
           onChange={({ target }) => setUser((prev) => ({ ...prev, username: target.value }))}
           placeholder={i18n.msg('USERNAME')}
@@ -73,8 +92,9 @@ const SignUpClerk = () => {
           required
           id="email"
           type="email"
+          labelClass="text-white"
           label={i18n.msg('EMAIL')}
-          wrapperClass="mb-3 mx-3"
+          wrapperClass="mb-3 mx-3 text-black"
           value={user?.email as string}
           onChange={({ target }) => setUser((prev) => ({ ...prev, email: target.value }))}
           placeholder={i18n.msg('EMAIL')}
@@ -83,8 +103,9 @@ const SignUpClerk = () => {
           required
           id="password"
           type="password"
+          labelClass="text-white"
           label={i18n.msg('PASSWORD')}
-          wrapperClass="mb-3 mx-3"
+          wrapperClass="mb-3 mx-3 text-black"
           value={user?.password as string}
           onChange={({ target }) => setUser((prev) => ({ ...prev, password: target.value }))}
           placeholder={i18n.msg('PASSWORD')}
@@ -92,16 +113,16 @@ const SignUpClerk = () => {
         <Button
           type="submit"
           isLoading={isPending}
-          wrapperClass="mt-6 mx-3"
+          wrapperClass="mt-6 mx-3 text-black"
           label={i18n.msg('CREATE_USER_ACCOUNT')}
           onClick={() => mutate(user as any)}
-          className="p-1  bg-slate-500 text-white hover:bg-slate-400"
+          className="p-2  bg-blue-900 text-white hover:bg-blue-800 border-none"
         />
       </form>
       <div className="text-center my-6">
         <p>
           {i18n.msg('ALREADY_ACCOUNT')}{' '}
-          <button className="text-blue-500" onClick={() => navigate(publicUrls.SIGN_IN)}>
+          <button className="text-white hover:text-purple-900" onClick={() => navigate(publicUrls.SIGN_IN)}>
             {i18n.msg('SIGNIN')}
           </button>
         </p>

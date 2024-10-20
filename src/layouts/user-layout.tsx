@@ -36,7 +36,7 @@ const UserLayout = () => {
 
   const photoUrl = user?.photoUrl ?? noUserImage;
   return (
-    <div className="">
+    <div className="bg-light-blue-gradient w-full min-h-screen">
       <div className="h-16 w-100 flex justify-between items-center px-[16px] bg-slate-100">
         <div>
           <button onClick={() => navigate(privateUrls.HOME)}>

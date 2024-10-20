@@ -15,6 +15,7 @@ const Input = ({
   endAdornment,
   type,
   label,
+  labelClass,
   endAdornmentClass,
   ...rest
 }: IInputProps & Omit<JSX.IntrinsicElements['input'], 'type'>) => {
@@ -83,7 +84,7 @@ const Input = ({
 
   return (
     <div className={`relative ${wrapperClass ?? ''}`}>
-      {label && <p className="pl-2 pb-2 text-sm">{label}</p>}
+      {label && <p className={`pl-2 pb-2 text-sm ${labelClass}`}>{label}</p>}
       <div className={`flex justify-between items-start ${endAdornmentClass ?? ''}`}>
         <input
           onFocus={(evt) => {

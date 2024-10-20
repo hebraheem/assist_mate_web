@@ -16,7 +16,12 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(135deg, #1a73e8 0%, #0044cc 100%)',
+        'light-blue-gradient': 'linear-gradient(135deg, #d4eaff 0%, #eaf7ff 100%)',
+      },
       colors: {
+        customBlue: '#1a73e8',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

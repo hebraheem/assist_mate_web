@@ -19,6 +19,7 @@ export interface IInputProps {
   placeholder: string;
   value: string;
   className?: classname;
+  labelClass?: classname;
   label?: string;
   wrapperClass?: classname;
   endAdornmentClass?: classname;
