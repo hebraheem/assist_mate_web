@@ -38,3 +38,10 @@ export interface INumberFormat {
   decimalSeparator?: string;
   thousandsSeparator?: string;
 }
+
+export interface ISvg {
+  width?: string;
+  color?: string;
+  height?: string;
+  onClick?: (...arg: any) => void;
+}

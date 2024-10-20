@@ -62,3 +62,20 @@ export interface ISelectProps {
   rest?: JSX.IntrinsicElements['select'];
   renderOptions: (...arg) => ReactI18NextChildren | Iterable<ReactI18NextChildren>;
 }
+
+export type Option = {
+  label: string;
+  value: string;
+};
+
+export interface MultiSelectProps {
+  options: Option[];
+  onChange: (selected: Option[]) => void;
+  placeholder?: string;
+  labelClass?: string;
+  wrapperClass?: string;
+  className?: string;
+  label: string;
+  id: string;
+  required?: boolean;
+}
