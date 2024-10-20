@@ -1,9 +1,9 @@
 import { ChevronDown } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { MultiSelectProps, Option } from 'src/@types/form-fields';
-import CancelOutlineIcon from 'src/constants/svgs/cancel-outline';
-import useClickOutside from 'src/hooks/use-clickout';
-import { separateAndCapitalize } from 'src/utils/methods/helpers';
+import { MultiSelectProps, Option } from '../../@types/form-fields';
+import CancelOutlineIcon from '../../constants/svgs/cancel-outline';
+import useClickOutside from '../../hooks/use-clickout';
+import { separateAndCapitalize } from '../../utils/methods/helpers';
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
   options,
@@ -13,6 +13,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   wrapperClass,
   className,
   id,
+  values,
   required,
   placeholder = 'Select items',
 }) => {
@@ -35,6 +36,20 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 
   useEffect(
     () => {
+      if (values?.length) {
+        const selected = options.filter((item) => {
+          // @ts-ignore
+          if (values[0]?.value) {
+            // @ts-ignore
+            const stringValue = values.map(({ value }) => value);
+            return stringValue.includes(item.value);
+          } else {
+            return values.includes(item.value);
+          }
+        });
+        setSelectedItems(selected);
+        onChange(selected);
+      }
       setFilteredOptions(options);
     },
     // eslint-disable-next-line
