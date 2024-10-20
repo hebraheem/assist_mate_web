@@ -1,7 +1,15 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import {
+  confirmPasswordReset,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
 import { auth, db, googleAuth } from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { IUser } from '../../@types/user';
+import { publicUrls } from 'src/routes/urls';
 
 export const createUser = async (userData: IUser) => {
   const userCredential = await createUserWithEmailAndPassword(auth, userData.email, userData.password as string);
@@ -29,4 +37,23 @@ export const logout = () => {
 
 export const login = (userData: Pick<IUser, 'email' | 'password'>) => {
   return signInWithEmailAndPassword(auth, userData.email, userData.password as string);
+};
+
+export const restPassword = (userData: Pick<IUser, 'email'>): any => {
+  try {
+    return sendPasswordResetEmail(auth, userData.email, {
+      url: `https://assistmate.netlify.app${publicUrls.RESET_PASSWORD}`,
+      handleCodeInApp: true,
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
+export const confirmRestPassword = (data: { password: string; oobCode: string }): any => {
+  try {
+    return confirmPasswordReset(auth, data.oobCode, data.password);
+  } catch (error) {
+    return error;
+  }
 };

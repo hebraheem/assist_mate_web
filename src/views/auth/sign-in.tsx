@@ -68,7 +68,10 @@ const SignInClerk = () => {
           isLoading={isPending}
           wrapperClass="mt-6 mx-3"
           label={i18n.msg('LOGIN')}
-          onClick={() => mutate(user as any)}
+          onClick={() => {
+            if (!user.email || !user.password) return;
+            mutate(user as any);
+          }}
           className="p-2  bg-blue-900 text-white hover:bg-blue-800 border-none"
         />
       </form>

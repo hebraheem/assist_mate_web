@@ -12,7 +12,7 @@ const AuthLayout = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-custom-gradient">
-      <div className="relative sm:p-10 p-5 mx-3 bg-white bg-opacity-5 backdrop-blur-md rounded-xl shadow-md w-full max-w-md border border-white border-opacity-30">
+      <div className="relative sm:p-10 p-5 m-3 bg-white bg-opacity-5 backdrop-blur-md rounded-xl shadow-md w-full max-w-md border border-white border-opacity-30">
         <div className="absolute inset-0 flex items-center justify-center z-0">
           {/* Background Decoration */}
           <div className="absolute top-0 left-0 w-16 h-16 bg-green-400 rounded-full"></div>
