@@ -125,6 +125,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
             {selectedItems.map((item) => (
               <div
                 key={item.value}
+                data-testid={item.label}
                 className="bg-blue-500 text-white rounded-full px-3 py-1 text-sm flex max-w-max justify-between items-center"
               >
                 <span className="mr-1">{item.label}</span>
