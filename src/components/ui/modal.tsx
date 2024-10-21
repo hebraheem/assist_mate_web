@@ -3,6 +3,7 @@ import useBreakpoint from '../../hooks/use-break-point';
 
 interface ResponsiveModalDrawerProps {
   isOpen: boolean;
+  hideCloseBtn?: boolean;
   onClose: () => void;
   children: React.ReactNode;
   backdropCollapsible?: boolean;
@@ -11,6 +12,7 @@ interface ResponsiveModalDrawerProps {
 const ResponsiveModalDrawer: React.FC<ResponsiveModalDrawerProps> = ({
   isOpen,
   onClose,
+  hideCloseBtn,
   backdropCollapsible,
   children,
 }) => {
@@ -54,9 +56,11 @@ const ResponsiveModalDrawer: React.FC<ResponsiveModalDrawerProps> = ({
       >
         {/* Modal content */}
         <div>{children}</div>
-        <button onClick={onClose} className="mt-4 bg-red-500 text-white py-2 px-4 rounded">
-          Close
-        </button>
+        {!hideCloseBtn && (
+          <button onClick={onClose} className="mt-4 bg-red-500 text-white py-2 px-4 rounded">
+            Close
+          </button>
+        )}
       </div>
     );
   };
@@ -74,9 +78,11 @@ const ResponsiveModalDrawer: React.FC<ResponsiveModalDrawerProps> = ({
       >
         {/* Drawer content */}
         <div>{children}</div>
-        <button onClick={onClose} className="mt-4 bg-red-500 text-white py-2 px-4 rounded">
-          Close
-        </button>
+        {!hideCloseBtn && (
+          <button onClick={onClose} className="mt-4 bg-red-500 text-white py-2 px-4 rounded">
+            Close
+          </button>
+        )}
       </div>
     );
   };

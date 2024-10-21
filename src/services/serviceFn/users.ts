@@ -45,13 +45,6 @@ export const logout = () => {
 export const login = async (userData: Pick<IUser, 'email' | 'password'>) => {
   const userCredential = await signInWithEmailAndPassword(auth, userData.email, userData.password as string);
   const user = userCredential.user;
-  if (user && !user.emailVerified) {
-    await sendEmailVerification(user, {
-      url: messageChannelUrl,
-      handleCodeInApp: true,
-    });
-    throw new Error(i18n.t('VERIFICATION_SENT_VERIFY'));
-  }
   return user;
 };
 
@@ -71,5 +64,16 @@ export const confirmRestPassword = (data: { password: string; oobCode: string })
     return confirmPasswordReset(auth, data.oobCode, data.password);
   } catch (error) {
     return error;
+  }
+};
+
+export const verifyEmail = () => {
+  if (auth.currentUser) {
+    return sendEmailVerification(auth?.currentUser, {
+      url: messageChannelUrl,
+      handleCodeInApp: true,
+    });
+  } else {
+    throw new Error(i18n.t('NO_USER'));
   }
 };
