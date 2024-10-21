@@ -10,3 +10,7 @@ export const TRAVEL_MODE: {
   BICYCLING: google.maps.TravelMode.BICYCLING,
   TRANSIT: google.maps.TravelMode.TRANSIT,
 };
+
+export const ACTION_MODE = {
+  RESET_PASSWORD: 'resetPassword',
+};

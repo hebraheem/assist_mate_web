@@ -26,11 +26,9 @@ const ConfirmResetPassword = () => {
   }, [location]);
 
   const { mutate, isPending } = useConfirmRestPassword({
-    onSuccess: (data) => {
-      if (data) {
-        toast(errorTransform('Password has been reset'), { type: 'success' });
-        navigate(publicUrls.SIGN_IN);
-      }
+    onSuccess: () => {
+      toast(errorTransform('Password has been reset'), { type: 'success' });
+      navigate(publicUrls.SIGN_IN);
     },
     onError: (err) => {
       toast(errorTransform(err.message), { type: 'error' });

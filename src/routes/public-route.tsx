@@ -3,7 +3,7 @@ import { publicUrls } from './urls';
 import SignInClerk from '../views/auth/sign-in';
 import SignUpClerk from '../views/auth/sign-up';
 import ResetPassword from 'src/views/auth/reset-password';
-import ConfirmResetPassword from 'src/views/auth/confirm-reset-password';
+import Triggers from 'src/views/auth/tiggers';
 
 export const publicRouteConfig = [
   {
@@ -47,8 +47,8 @@ export const publicRouteConfig = [
     },
   },
   {
-    path: publicUrls.RESET_PASSWORD,
-    element: <ConfirmResetPassword />,
+    path: publicUrls.TRIGGER,
+    element: <Triggers />,
     handle: (data?: never) => {
       return {
         isLogin: true,

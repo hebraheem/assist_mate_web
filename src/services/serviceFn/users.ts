@@ -9,7 +9,6 @@ import {
 import { auth, db, googleAuth } from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { IUser } from '../../@types/user';
-import { publicUrls } from 'src/routes/urls';
 
 export const createUser = async (userData: IUser) => {
   const userCredential = await createUserWithEmailAndPassword(auth, userData.email, userData.password as string);
@@ -42,7 +41,7 @@ export const login = (userData: Pick<IUser, 'email' | 'password'>) => {
 export const restPassword = (userData: Pick<IUser, 'email'>): any => {
   try {
     return sendPasswordResetEmail(auth, userData.email, {
-      url: `https://assistmate.netlify.app${publicUrls.RESET_PASSWORD}`,
+      url: `https://assistmate.netlify.app/action`,
       handleCodeInApp: true,
     });
   } catch (error) {
