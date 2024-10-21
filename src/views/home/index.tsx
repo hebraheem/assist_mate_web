@@ -31,7 +31,6 @@ const Home = () => {
     },
   });
 
-  console.log('emailVerified :>> ', emailVerified);
   return (
     <div>
       <ResponsiveModalDrawer

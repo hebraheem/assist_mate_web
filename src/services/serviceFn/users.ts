@@ -45,6 +45,10 @@ export const logout = () => {
 export const login = async (userData: Pick<IUser, 'email' | 'password'>) => {
   const userCredential = await signInWithEmailAndPassword(auth, userData.email, userData.password as string);
   const user = userCredential.user;
+  if (user && !user.emailVerified) {
+    await verifyEmail();
+    throw new Error(i18n.t('EMAIL_NOT_VERIFIED'));
+  }
   return user;
 };
 
