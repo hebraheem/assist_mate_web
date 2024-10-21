@@ -1,3 +1,4 @@
+import { IDefaultRequest } from '../../@types/request';
 import { IUser } from '../../@types/user';
 
 export const defaultUser: IUser = {
@@ -5,7 +6,6 @@ export const defaultUser: IUser = {
   bio: '',
   firstName: '',
   lastName: '',
-  avatar: '',
   email: '',
   password: '',
   nationality: '',
@@ -14,6 +14,11 @@ export const defaultUser: IUser = {
   verified: false,
   active: false,
   otherLanguages: [],
+  userType: 'SEEKER',
+  locationAllowed: true,
+  reviews: [],
+  chats: [],
+  requests: [],
   hobbies: [],
   address: {
     street: '',
@@ -34,4 +39,18 @@ export const defaultUser: IUser = {
       proof_3: '',
     },
   },
+};
+
+export const defaultRequest: IDefaultRequest = {
+  title: '',
+  category: '',
+  description: '',
+  dueDateTime: '',
+  status: 'CREATED',
+  otherCategory: '',
+  chats: [],
+  user: '',
+  resolver: '',
+  tempResolvers: [],
+  files: [],
 };

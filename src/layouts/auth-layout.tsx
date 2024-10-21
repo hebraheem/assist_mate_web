@@ -4,10 +4,10 @@ import { Suspense } from 'react';
 import useAuthentication from '../auth/useAuthentication';
 
 const AuthLayout = () => {
-  const { isLoading, isAuthenticated } = useAuthentication();
+  const { isLoading, isAuthenticated, user } = useAuthentication();
 
   if (isLoading) return <Suspense fallback={'loading...'} />;
-  if (isAuthenticated) return <Navigate to={privateUrls.HOME} />;
+  if (isAuthenticated && user?.emailVerified) return <Navigate to={privateUrls.HOME} />;
   if (window.location.pathname === '/') return <Navigate to={publicUrls.SIGN_IN} />;
 
   return (

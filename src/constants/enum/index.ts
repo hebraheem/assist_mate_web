@@ -13,4 +13,5 @@ export const TRAVEL_MODE: {
 
 export const ACTION_MODE = {
   RESET_PASSWORD: 'resetPassword',
+  VERIFY_EMAIL: 'verifyEmail',
 };

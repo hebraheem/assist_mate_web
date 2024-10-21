@@ -10,9 +10,14 @@ export interface IUser {
   primaryLanguage?: string;
   mobile?: string;
   verified?: boolean;
+  locationAllowed?: boolean;
+  userType?: 'SEEKER' | 'HELPER';
   active?: boolean;
   otherLanguages?: Array<unknown>;
   hobbies?: Array<unknown>;
+  reviews?: Array<unknown>;
+  requests?: Array<unknown>;
+  chats?: Array<unknown>;
   address?: IAddress;
   settings?: ISettings;
 }

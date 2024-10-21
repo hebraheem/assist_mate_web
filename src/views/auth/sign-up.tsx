@@ -6,7 +6,7 @@ import { useI18n } from '../../services/languages/i18fn';
 import Button from '../../components/ui/button';
 import { useCreateWithEmail } from '../../services/mutations/user-auth';
 import { useNavigate } from 'react-router-dom';
-import { privateUrls, publicUrls } from '../../routes/urls';
+import { publicUrls } from '../../routes/urls';
 import { toast } from 'react-toastify';
 import { errorTransform } from 'src/utils/methods/helpers';
 import AppleIcon from 'src/constants/svgs/apple';
@@ -20,7 +20,8 @@ const SignUpClerk = () => {
   const { mutate, isPending } = useCreateWithEmail({
     onSuccess: (data) => {
       if (data) {
-        navigate(privateUrls.HOME);
+        toast.success(i18n.msg('VERIFICATION_SENT_VERIFY'));
+        // navigate(publicUrls.SIGN_IN);
       }
     },
     onError: (err) => {

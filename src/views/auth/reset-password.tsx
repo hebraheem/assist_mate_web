@@ -15,11 +15,9 @@ const ResetPassword = () => {
   const i18n = useI18n();
   const navigate = useNavigate();
   const { mutate, isPending } = useSendResetPasswordLink({
-    onSuccess: (data) => {
-      if (data) {
-        toast(errorTransform('Password reset email sent'), { type: 'success' });
-        navigate(publicUrls.SIGN_IN);
-      }
+    onSuccess: () => {
+      toast(errorTransform(i18n.msg('PASSWORD_REQUEST_SENT')), { type: 'success' });
+      navigate(publicUrls.SIGN_IN);
     },
     onError: (err) => {
       toast(errorTransform(err.message), { type: 'error' });

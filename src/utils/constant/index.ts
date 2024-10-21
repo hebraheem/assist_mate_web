@@ -4,3 +4,5 @@ export const SUPPORTED_LOCALE = {
   'en-US': 'English',
   'de-DE': 'German',
 };
+
+export const messageChannelUrl = `https://assistmate.netlify.app/action`;

@@ -1,6 +1,7 @@
 import {
   confirmPasswordReset,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -9,19 +10,26 @@ import {
 import { auth, db, googleAuth } from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { IUser } from '../../@types/user';
+import { messageChannelUrl } from 'src/utils/constant';
+import i18n from 'src/i18n';
 
 export const createUser = async (userData: IUser) => {
   const userCredential = await createUserWithEmailAndPassword(auth, userData.email, userData.password as string);
   const user = userCredential.user;
+
   await setDoc(doc(db, 'users', user.uid), {
     email: user.email,
     createdAt: new Date(),
-    isVerified: false,
     firstName: userData.firstName,
     lastName: userData.lastName,
     username: userData.username,
     isActive: true,
     lastLogIn: new Date(),
+  });
+
+  await sendEmailVerification(user, {
+    url: messageChannelUrl,
+    handleCodeInApp: true,
   });
   return user;
 };
@@ -34,14 +42,23 @@ export const logout = () => {
   return signOut(auth);
 };
 
-export const login = (userData: Pick<IUser, 'email' | 'password'>) => {
-  return signInWithEmailAndPassword(auth, userData.email, userData.password as string);
+export const login = async (userData: Pick<IUser, 'email' | 'password'>) => {
+  const userCredential = await signInWithEmailAndPassword(auth, userData.email, userData.password as string);
+  const user = userCredential.user;
+  if (user && !user.emailVerified) {
+    await sendEmailVerification(user, {
+      url: messageChannelUrl,
+      handleCodeInApp: true,
+    });
+    throw new Error(i18n.t('VERIFICATION_SENT_VERIFY'));
+  }
+  return user;
 };
 
 export const restPassword = (userData: Pick<IUser, 'email'>): any => {
   try {
     return sendPasswordResetEmail(auth, userData.email, {
-      url: `https://assistmate.netlify.app/action`,
+      url: messageChannelUrl,
       handleCodeInApp: true,
     });
   } catch (error) {

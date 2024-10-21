@@ -32,7 +32,8 @@ const UserLayout = () => {
 
   if (isLoading) return <Suspense fallback={'loading...'} />;
   if (!isAuthenticated) return <Navigate to={publicUrls.SIGN_IN} />;
-  if (isAuthenticated && window.location.pathname === '/') return <Navigate to={privateUrls.HOME} />;
+  if (isAuthenticated && window.location.pathname === '/' && user.emailVerified)
+    return <Navigate to={privateUrls.HOME} />;
 
   const photoUrl = user?.photoUrl ?? noUserImage;
   return (
