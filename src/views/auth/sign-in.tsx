@@ -10,7 +10,7 @@ import { defaultUser } from '../../utils/constant/defaultData';
 import { toast } from 'react-toastify';
 import { errorTransform } from 'src/utils/methods/helpers';
 import GoogleIcon from 'src/constants/svgs/google';
-import AppleIcon from 'src/constants/svgs/apple';
+// import AppleIcon from 'src/constants/svgs/apple';
 
 const SignInClerk = () => {
   const [user, setUser] = useState<IUser>(defaultUser);
@@ -79,14 +79,14 @@ const SignInClerk = () => {
         <hr className="w-full" /> or <hr className="w-full" />
       </div>
       <div className="flex justify-between space-x-4 mx-3">
-        <Button
+        {/* <Button
           label=""
           icon={() => <AppleIcon />}
           iconPre
           onClick={() => console.log('Apple')}
           wrapperClass="w-full"
           className="w-full p-1 shadow-inner  hover:bg-slate-100"
-        />
+        /> */}
         <Button
           label=""
           onClick={() => console.log('Google')}

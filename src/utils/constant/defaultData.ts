@@ -11,8 +11,6 @@ export const defaultUser: IUser = {
   nationality: '',
   primaryLanguage: '',
   mobile: '',
-  verified: false,
-  active: false,
   otherLanguages: [],
   userType: 'SEEKER',
   locationAllowed: true,

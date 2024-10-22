@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { publicUrls } from '../../routes/urls';
 import { toast } from 'react-toastify';
 import { errorTransform } from 'src/utils/methods/helpers';
-import AppleIcon from 'src/constants/svgs/apple';
+// import AppleIcon from 'src/constants/svgs/apple';
 import GoogleIcon from 'src/constants/svgs/google';
 
 const SignUpClerk = () => {
@@ -36,14 +36,14 @@ const SignUpClerk = () => {
         <p className="text-sm">{i18n.msg('WELCOME_NOTE')}</p>
       </div>
       <div className="flex justify-between items-center mb-3 mx-3 gap-3">
-        <Button
+        {/* <Button
           label=""
           icon={() => <AppleIcon />}
           iconPre
           onClick={() => console.log('Apple')}
           wrapperClass="w-full"
           className="w-full p-1 shadow-inner hover:bg-slate-100"
-        />
+        /> */}
         <Button
           label=""
           onClick={() => console.log('Google')}

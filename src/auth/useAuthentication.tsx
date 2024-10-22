@@ -27,6 +27,7 @@ const useAuthentication = (): IAuthData => {
           } else {
             setUser(currentUser);
             setIsAuthenticated(true);
+            localStorage.setItem('token', idToken);
           }
         } catch (error: any) {
           console.error('Error fetching ID token:', error);

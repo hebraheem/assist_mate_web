@@ -45,3 +45,71 @@ export interface ISettings {
   currentLatLng?: ICoordinate;
   documents?: IDocuments;
 }
+
+export interface IUserResponse {
+  address?: IAddress;
+  email?: string;
+  firstName?: string;
+  hobbies?: Array<unknown>;
+  otherLanguages?: Array<unknown>;
+  isActive?: boolean;
+  lastName?: string;
+  chats?: Array<unknown>;
+  mobile?: string;
+  displayName?: string;
+  nationality?: string;
+  lastLogIn?: ILastLogIn;
+  username?: string;
+  userType?: string;
+  settings?: ISettings;
+  primaryLanguage?: string;
+  verified?: boolean;
+  bio?: string;
+  createdAt?: ILastLogIn;
+  requests?: Array<unknown>;
+  locationAllowed?: boolean;
+  reviews?: Array<unknown>;
+  id?: string;
+  meta?: IMeta;
+  emailVerified?: boolean;
+  providerId?: string;
+  uid?: string;
+  phoneNumber?: null;
+  photoURL?: string;
+}
+export interface ICoordinate {
+  lng?: null;
+  lat?: null;
+}
+export interface IAddress {
+  country?: string;
+  state?: string;
+  houseNumber?: string;
+  street?: string;
+  coordinate?: ICoordinate;
+  city?: string;
+}
+export interface ILastLogIn {
+  seconds?: number;
+  nanoseconds?: number;
+}
+export interface IDocuments {
+  proof_2?: string;
+  id?: string;
+  proof_1?: string;
+  proof_3?: string;
+}
+export interface ICurrentLatLng {
+  lat?: null;
+  lng?: null;
+}
+export interface ISettings {
+  documents?: IDocuments;
+  currentLatLng?: ICurrentLatLng;
+  occupation?: string;
+  language?: string;
+}
+export interface IMeta {
+  hasPendingWrites?: boolean;
+  fromCache?: boolean;
+}

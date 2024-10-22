@@ -10,10 +10,10 @@ import { BellDotIcon, History, House, LogOut, MessageSquare, Settings, Settings2
 import { logout } from 'src/services/serviceFn/users';
 
 const navItem = [
-  { label: 'HOME', icon: <House />, href: privateUrls.HOME },
-  { label: 'HISTORY', icon: <History />, href: privateUrls.HISTORY },
-  { label: 'CHAT', icon: <MessageSquare />, href: privateUrls.NOTIFICATION },
-  { label: 'SETTINGS', icon: <Settings2 />, href: privateUrls.SETTINGS },
+  { label: 'HOME', icon: <House className="w-6 h-6" />, href: privateUrls.HOME },
+  { label: 'HISTORY', icon: <History className="w-6 h-6" />, href: privateUrls.HISTORY },
+  { label: 'CHAT', icon: <MessageSquare className="w-6 h-6" />, href: privateUrls.NOTIFICATION },
+  { label: 'SETTINGS', icon: <Settings2 className="w-6 h-6" />, href: privateUrls.SETTINGS },
 ];
 
 const UserLayout = () => {
@@ -35,7 +35,7 @@ const UserLayout = () => {
   if (isAuthenticated && window.location.pathname === '/' && user.emailVerified)
     return <Navigate to={privateUrls.HOME} />;
 
-  const photoUrl = user?.photoUrl ?? noUserImage;
+  const photoUrl = user?.photoURL ?? noUserImage;
   return (
     <div className="bg-light-blue-gradient w-full min-h-screen">
       <div className="absolute inset-10 flex items-center justify-center z-0">
@@ -128,9 +128,9 @@ const UserLayout = () => {
               menubarItems={[
                 {
                   key: 'Profile',
-                  label: i18n.msg('PROFILE'),
+                  label: user?.email,
                   icon: <User className="text-sm" />,
-                  itemProp: { onClick: () => navigate(privateUrls.PROFILE) },
+                  itemProp: {},
                 },
                 {
                   key: 'settings',
@@ -161,7 +161,9 @@ const UserLayout = () => {
           </div>
         </div>
       </div>
-      <Outlet />
+      <div className="relative z-1">
+        <Outlet />
+      </div>
       <div className="md:hidden flex justify-between px-6 py-3 w-full items-center fixed bottom-0 bg-slate-100 rounded-t-2xl">
         {navItem.map((item) => {
           const active = window.location.pathname.includes(item.href);
@@ -170,10 +172,10 @@ const UserLayout = () => {
               to={item.href}
               key={item.href}
               role="button"
-              className={`flex flex-col items-center ${active && 'p-3 bg-slate-500 rounded-full text-white'}`}
+              className={`flex flex-col items-center ${active && 'text-blue-500'} text-sm`}
             >
               {item.icon}
-              <h4 className="text-sm">{item.label}</h4>
+              <p>{item.label}</p>
             </Link>
           );
         })}
