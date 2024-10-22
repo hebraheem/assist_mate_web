@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function usePullToRefresh(ref: React.RefObject<HTMLDivElement>, onTrigger: () => void) {
+export default function usePullToRefresh(ref: React.RefObject<HTMLDivElement>, onTrigger: (...arg: any) => unknown) {
   const TRIGGER_THRESHOLD = 180;
   const SHOW_INDICATOR_THRESHOLD = 50;
   const [polling, setPolling] = useState(false);

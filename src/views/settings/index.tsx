@@ -9,13 +9,14 @@ import { useGetUser, useUpdateUser } from 'src/services/mutations/user-auth';
 import { noUserImage } from 'src/utils/constant';
 import { storage } from 'src/services/firebase';
 import useAuthentication from 'src/auth/useAuthentication';
+import usePullToRefresh from 'src/components/ui/pull-refresh';
 
 const Settings = () => {
   const { data, isPending, rest } = useGetUser();
   const { user: authUser } = useAuthentication();
-  // const [userData, setUserData]= useState<IUserResponse>()
   const i18n = useI18n();
-
+  const pullRef = useRef<any>();
+  usePullToRefresh(pullRef, () => rest.refetch());
   const { mutate, isPending: isUpdating } = useUpdateUser({
     onSuccess: () => {
       toast.success(i18n.msg('USER_DATA_UPDATED'));
@@ -76,7 +77,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="md:max-w-[80%] m-auto relative">
+    <div className="md:max-w-[80%] m-auto relative" ref={pullRef}>
       <div className="flex bg-white md:h-[30vh] h-[21vh] m-2 shadow-lg bg-opacity-45 rounded-lg">
         <div className="md:h-[250px] h-[140px] md:w-[250px] w-[140px]  my-auto">
           <img

@@ -64,26 +64,6 @@ const UserLayout = () => {
           <img width="50" height="50" src="https://img.icons8.com/ios/50/information--v1.png" alt="information--v1" />
         </div>
       </div>
-      {/* <div className="absolute inset-10 flex items-center justify-center z-0">
-        <div className="absolute top-10 left-0 w-16 h-16 bg-green-400 rounded-full">
-          <img src="https://img.icons8.com/?size=100&id=PZpLpwIPUpaF&format=png&color=000000" alt="help-up" />
-        </div>
-        <div className="absolute top-24 right-10 w-24 h-24 bg-red-500 rounded-full">
-          <img src="https://img.icons8.com/?size=100&id=23530&format=png&color=000000" alt="think" />
-        </div>
-        <div className="absolute bottom-20 left-12 w-32 h-32 bg-blue-400 rounded-full text-center">
-          <img src="https://img.icons8.com/?size=100&id=15975&format=png&color=000000" alt="hand-c" />
-        </div>
-        <div className="absolute bottom-72 right-72 w-32 h-32 bg-orange-400 rounded-full">
-          <img src="https://img.icons8.com/?size=100&id=p4rXi9HURgXT&format=png&color=000000" alt="help-logo" />
-        </div>
-        <div className="absolute top-52 left-[25rem] w-16 h-16 bg-yellow-400 rounded-full">
-          <img width="50" height="50" src="https://img.icons8.com/ios/50/why-quest.png" alt="why-quest" />
-        </div>
-        <div className="absolute bottom-10 right-10 w-16 h-16 bg-purple-400 rounded-full">
-          <img width="50" height="50" src="https://img.icons8.com/ios/50/information--v1.png" alt="information--v1" />
-        </div>
-      </div> */}
       <div className="h-16 w-100 flex justify-between items-center px-[16px] bg-slate-100">
         <div>
           <button onClick={() => navigate(privateUrls.HOME)}>
@@ -98,7 +78,7 @@ const UserLayout = () => {
                 to={item.href}
                 key={item.href}
                 role="button"
-                className={`flex flex-col items-center ${active && 'text-slate-500'}`}
+                className={`flex flex-col items-center ${active && 'text-blue-500'}`}
               >
                 <h4 className="text-sm">{item.label}</h4>
               </Link>
