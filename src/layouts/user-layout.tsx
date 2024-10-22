@@ -1,5 +1,5 @@
 import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { useI18n } from '../services/languages/i18fn';
 import { noUserImage, SUPPORTED_LOCALE } from '../utils/constant';
@@ -8,6 +8,8 @@ import { privateUrls, publicUrls } from '../routes/urls';
 import MenubarComponent from '../components/ui/menu-bar';
 import { BellDotIcon, History, House, LogOut, MessageSquare, Settings, Settings2, User } from 'lucide-react';
 import { logout } from 'src/services/serviceFn/users';
+import usePullToRefresh, { PullIndicator } from 'src/components/ui/pull-refresh';
+import { auth } from 'src/services/firebase';
 
 const navItem = [
   { label: 'HOME', icon: <House className="w-6 h-6" />, href: privateUrls.HOME },
@@ -20,7 +22,9 @@ const UserLayout = () => {
   const [lang, setLang] = useState<string>();
   const navigate = useNavigate();
   const i18n = useI18n();
+  const refreshCont = useRef<any>(0);
   const { isLoading, isAuthenticated, user } = useAuthentication();
+  const { polling, pullChangeDegree } = usePullToRefresh(refreshCont, () => auth.currentUser?.reload());
 
   useEffect(
     () => {
@@ -37,7 +41,9 @@ const UserLayout = () => {
 
   const photoUrl = user?.photoURL ?? noUserImage;
   return (
-    <div className="bg-light-blue-gradient w-full min-h-screen">
+    <div className="bg-light-blue-gradient w-full min-h-screen relative" ref={refreshCont}>
+      {polling && <PullIndicator pullChangeDegree={pullChangeDegree} />}
+
       <div className="absolute inset-10 flex items-center justify-center z-0">
         <div className="absolute top-10 left-0 w-16 h-16">
           <img src="https://img.icons8.com/?size=100&id=PZpLpwIPUpaF&format=png&color=000000" alt="help-up" />

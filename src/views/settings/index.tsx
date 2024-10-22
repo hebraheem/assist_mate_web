@@ -78,7 +78,7 @@ const Settings = () => {
   return (
     <div className="md:max-w-[80%] m-auto relative">
       <div className="flex bg-white md:h-[30vh] h-[21vh] m-2 shadow-lg bg-opacity-45 rounded-lg">
-        <div className="md:h-[250px] h-[190px] md:w-[250px] w-[190px]  my-auto">
+        <div className="md:h-[250px] h-[140px] md:w-[250px] w-[140px]  my-auto">
           <img
             src={authUser?.photoURL ?? user?.photoURL ?? noUserImage}
             alt="user_image"
