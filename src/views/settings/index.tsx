@@ -8,9 +8,11 @@ import { useI18n } from 'src/services/languages/i18fn';
 import { useGetUser, useUpdateUser } from 'src/services/mutations/user-auth';
 import { noUserImage } from 'src/utils/constant';
 import { storage } from 'src/services/firebase';
+import useAuthentication from 'src/auth/useAuthentication';
 
 const Settings = () => {
   const { data, isPending, rest } = useGetUser();
+  const { user: authUser } = useAuthentication();
   // const [userData, setUserData]= useState<IUserResponse>()
   const i18n = useI18n();
 
@@ -78,7 +80,7 @@ const Settings = () => {
       <div className="flex bg-white md:h-[30vh] h-[21vh] m-2 shadow-lg bg-opacity-45 rounded-lg">
         <div className="md:h-[250px] h-[190px] md:w-[250px] w-[190px]  my-auto">
           <img
-            src={user?.photoURL ?? noUserImage}
+            src={authUser?.photoURL ?? user?.photoURL ?? noUserImage}
             alt="user_image"
             className="relative rounded-full h-[90%] w-full m-2"
           />

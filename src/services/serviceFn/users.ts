@@ -159,6 +159,10 @@ export const updateUserProfile = async (data: { data: IUserResponse; updateOther
     onlyDbData.displayName = user.displayName as string;
     onlyDbData.verified = user.emailVerified;
     await updateDoc(userDocRef, { ...onlyDbData });
+  } else {
+    // update the photoURL in Firestore
+    const userDocRef = doc(db, 'users', user?.uid);
+    await updateDoc(userDocRef, { photoURL: userData.photoURL });
   }
 };
 
