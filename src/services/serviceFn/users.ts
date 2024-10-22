@@ -45,14 +45,16 @@ export const createUser = async (userData: IUser) => {
 export const signInWithGoogle = async () => {
   const userCredential = await signInWithPopup(auth, googleAuth);
   const user = userCredential.user;
-
-  await setDoc(doc(db, 'users', user.uid), {
-    ...defaultUser,
-    email: user.email,
-    createdAt: new Date(),
-    isActive: true,
-    lastLogIn: new Date(),
-  });
+  const existingUser = auth.currentUser;
+  if (existingUser?.uid !== user.uid) {
+    await setDoc(doc(db, 'users', user.uid), {
+      ...defaultUser,
+      email: user.email,
+      createdAt: new Date(),
+      isActive: true,
+      lastLogIn: new Date(),
+    });
+  }
 };
 
 export const logout = () => {
