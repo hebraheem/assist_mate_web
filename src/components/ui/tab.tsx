@@ -3,6 +3,7 @@ import React, { useState, ReactNode, useEffect, useRef } from 'react';
 interface Tab {
   label: string;
   content: ReactNode;
+  iconLink?: string;
 }
 
 export interface TabsProps {
@@ -58,10 +59,11 @@ const Tabs: React.FC<TabsProps> = ({ tabs, contentClass, labelWrapperClass, main
             ref={(el) => (tabRefs.current[index] = el)}
             className={`w-full md:w-auto py-2 px-4 text-left md:text-center focus:outline-none 
               ${activeTab === index ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}
-              hover:bg-blue-400 hover:text-white transition-all`}
+              hover:bg-blue-400 hover:text-white transition-all flex justify-center`}
             onClick={() => setActiveTab(index)}
           >
-            {tab.label}
+            <span className="hidden md:block">{tab.label}</span>{' '}
+            {tab?.iconLink && <img src={tab?.iconLink} alt={tab.iconLink} className="md:hidden w-6 h-6" />}
           </button>
         ))}
       </div>

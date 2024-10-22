@@ -156,6 +156,7 @@ export const updateUserProfile = async (data: { data: IUserResponse; updateOther
     delete onlyDbData.uid;
     delete onlyDbData.photoURL;
     delete onlyDbData.phoneNumber;
+    delete onlyDbData?.metadata;
     onlyDbData.displayName = user.displayName as string;
     onlyDbData.verified = user.emailVerified;
     await updateDoc(userDocRef, { ...onlyDbData });

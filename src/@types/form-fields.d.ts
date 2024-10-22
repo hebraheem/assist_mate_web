@@ -75,8 +75,10 @@ export interface MultiSelectProps {
   labelClass?: string;
   wrapperClass?: string;
   className?: string;
+  dependable?: unknown;
   label: string;
   values: string[];
   id: string;
   required?: boolean;
+  multi?: boolean;
 }

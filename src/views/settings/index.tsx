@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // For Firebase Storage
 
@@ -10,8 +10,13 @@ import { noUserImage } from 'src/utils/constant';
 import { storage } from 'src/services/firebase';
 import useAuthentication from 'src/auth/useAuthentication';
 import usePullToRefresh from 'src/components/ui/pull-refresh';
+import BasicData from './basic-data';
+import Documents from './documents';
+import UserSettings from './settings';
+import Address from './address-location';
 
 const Settings = () => {
+  const [user, setUser] = useState<IUserResponse>();
   const { data, isPending, rest } = useGetUser();
   const { user: authUser } = useAuthentication();
   const i18n = useI18n();
@@ -27,31 +32,40 @@ const Settings = () => {
     },
   });
 
-  const user = data as IUserResponse;
-  const fileInputRef = useRef<any>();
+  useEffect(() => {
+    if (!isPending && data) {
+      setUser(data);
+    }
+  }, [isPending, data]);
 
-  const tabItems = [
-    {
-      label: 'Basic data',
-      content: <div>Basic data setting!</div>,
-    },
-    {
-      label: 'Address and location',
-      content: <div>About us section content here.</div>,
-    },
-    {
-      label: 'Advanced settings',
-      content: <div>Here are the services we offer.</div>,
-    },
-    {
-      label: 'Documents',
-      content: <div>Feel free to contact us anytime!</div>,
-    },
-  ];
+  const fileInputRef = useRef<any>();
 
   if (isPending) {
     return <div>Loading...</div>;
   }
+
+  const tabItems = [
+    {
+      label: 'Basic data',
+      iconLink: 'https://img.icons8.com/?size=100&id=98957&format=png&color=000000',
+      content: <BasicData mutate={mutate} userData={user as IUserResponse} setUser={setUser} isUpdating={isUpdating} />,
+    },
+    {
+      label: 'Address and location',
+      iconLink: 'https://img.icons8.com/?size=100&id=1rUjj3uxy7sR&format=png&color=000000',
+      content: <Address mutate={mutate} userData={user as IUserResponse} setUser={setUser} isUpdating={isUpdating} />,
+    },
+    {
+      iconLink: 'https://img.icons8.com/?size=100&id=123429&format=png&color=000000',
+      label: 'Advanced settings',
+      content: <UserSettings mutate={mutate} userData={user as IUserResponse} />,
+    },
+    {
+      iconLink: 'https://img.icons8.com/?size=100&id=38991&format=png&color=000000',
+      label: 'Documents',
+      content: <Documents mutate={mutate} userData={user as IUserResponse} />,
+    },
+  ];
 
   const handleButtonClick = () => {
     if (fileInputRef?.current) fileInputRef.current.click();
@@ -63,7 +77,7 @@ const Settings = () => {
     if (files.length > 0) {
       const file = files[0];
       const copiedData = structuredClone(data) as IUserResponse;
-      const storageRef = ref(storage, `profilePhotos/${user.uid}/${file.name}`);
+      const storageRef = ref(storage, `profilePhotos/${user?.uid}/${file.name}`);
       try {
         const snapshot = await uploadBytes(storageRef, file);
         const downloadURL = await getDownloadURL(snapshot.ref);

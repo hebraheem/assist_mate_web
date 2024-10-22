@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MultiSelectProps, Option } from '../../@types/form-fields';
 import CancelOutlineIcon from '../../constants/svgs/cancel-outline';
 import useClickOutside from '../../hooks/use-clickout';
@@ -16,6 +16,8 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   values,
   required,
   placeholder = 'Select items',
+  multi = true,
+  dependable,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Option[]>([]);
@@ -24,6 +26,8 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   const [errorType, setErrorType] = useState({ value: false, valueText: '' });
   const [borderClass, setBorderClass] = useState<string>('border-slate-100');
   const [errorClass, setErrorClass] = useState<string>('border-blue-500');
+  const [openUpward, setOpenUpward] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const ref = useClickOutside<HTMLDivElement>(() => setIsOpen(false));
   useEffect(
@@ -34,10 +38,26 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     [selectedItems]
   );
 
+  useEffect(() => {
+    if (isOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      // Check if there's enough space below; if not, open upward
+      if (spaceBelow < 200 && spaceAbove > 200) {
+        // 200px is an example dropdown height
+        setOpenUpward(true);
+      } else {
+        setOpenUpward(false);
+      }
+    }
+  }, [isOpen]);
+
   useEffect(
     () => {
       if (values?.length) {
-        const selected = options.filter((item) => {
+        const selected = options?.filter((item) => {
           // @ts-ignore
           if (values[0]?.value) {
             // @ts-ignore
@@ -53,7 +73,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       setFilteredOptions(options);
     },
     // eslint-disable-next-line
-    []
+    [isOpen, dependable]
   );
 
   const validate = () => {
@@ -79,6 +99,12 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 
   // Handle checkbox change
   const handleCheckboxChange = (option: Option) => {
+    if (!multi) {
+      setSelectedItems([option]);
+      onChange([option]);
+      setIsOpen(false);
+      return;
+    }
     const isAlreadySelected = selectedItems.some((item) => item.value === option.value);
     let newSelectedItems;
 
@@ -122,7 +148,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       >
         {selectedItems.length > 0 ? (
           <div className="flex flex-wrap gap-2">
-            {selectedItems.map((item) => (
+            {selectedItems?.map((item) => (
               <div
                 key={item.value}
                 data-testid={item.label}
@@ -143,24 +169,29 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 
       {/* Dropdown List */}
       {isOpen && (
-        <div className="absolute mt-2 bg-white border border-gray-300 rounded w-full max-h-64 overflow-y-auto shadow-lg z-10">
+        <div
+          className={`absolute mt-2 bg-white border border-gray-300 rounded w-full max-h-64 overflow-y-auto shadow-lg z-30 ${openUpward ? '-top-48' : 'top-10'} transition-all ease-in-out duration-300`}
+          ref={dropdownRef}
+        >
           <input
             type="search"
             onChange={handleFilterChange}
             placeholder="Search..."
             className="placeholder:text-sm placeholder:text-slate-300 w-full p-2 border-b border-gray-300 focus:outline-none text-black"
           />
-          {filteredOptions.map((option) => (
-            <label key={option.value} className="flex text-black items-center p-2 hover:bg-gray-100 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={selectedItems.some((item) => item.value === option.value)}
-                onChange={() => handleCheckboxChange(option)}
-                className="mr-2"
-              />
-              {option.label}
-            </label>
-          ))}
+          <div>
+            {filteredOptions.map((option) => (
+              <label key={option.value} className="flex text-black items-center p-2 hover:bg-gray-100 cursor-pointer">
+                <input
+                  type={!multi ? 'radio' : 'checkbox'}
+                  checked={selectedItems.some((item) => item.value === option.value)}
+                  onChange={() => handleCheckboxChange(option)}
+                  className={`mr-2`}
+                />
+                {option.label}
+              </label>
+            ))}
+          </div>
         </div>
       )}
       {errorType.valueText ? <small className="text-red-500 bottom-0 left-2 pt-2">{errorType.valueText}</small> : null}

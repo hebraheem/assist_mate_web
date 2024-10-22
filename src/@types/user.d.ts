@@ -76,6 +76,7 @@ export interface IUserResponse {
   uid?: string;
   phoneNumber?: null;
   photoURL?: string;
+  metadata?: unknown;
 }
 export interface ICoordinate {
   lng?: null;
