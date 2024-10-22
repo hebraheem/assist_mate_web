@@ -10,6 +10,7 @@ import { defaultUser } from '../../utils/constant/defaultData';
 import { toast } from 'react-toastify';
 import { errorTransform } from 'src/utils/methods/helpers';
 import GoogleIcon from 'src/constants/svgs/google';
+import { signInWithGoogle } from 'src/services/serviceFn/users';
 // import AppleIcon from 'src/constants/svgs/apple';
 
 const SignInClerk = () => {
@@ -89,7 +90,7 @@ const SignInClerk = () => {
         /> */}
         <Button
           label=""
-          onClick={() => console.log('Google')}
+          onClick={signInWithGoogle}
           icon={() => <GoogleIcon />}
           iconPre
           wrapperClass="w-full"

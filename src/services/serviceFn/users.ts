@@ -42,8 +42,17 @@ export const createUser = async (userData: IUser) => {
   return user;
 };
 
-export const signInWithGoogle = () => {
-  return signInWithPopup(auth, googleAuth);
+export const signInWithGoogle = async () => {
+  const userCredential = await signInWithPopup(auth, googleAuth);
+  const user = userCredential.user;
+
+  await setDoc(doc(db, 'users', user.uid), {
+    ...defaultUser,
+    email: user.email,
+    createdAt: new Date(),
+    isActive: true,
+    lastLogIn: new Date(),
+  });
 };
 
 export const logout = () => {

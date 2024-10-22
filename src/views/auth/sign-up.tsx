@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { errorTransform } from 'src/utils/methods/helpers';
 // import AppleIcon from 'src/constants/svgs/apple';
 import GoogleIcon from 'src/constants/svgs/google';
+import { signInWithGoogle } from 'src/services/serviceFn/users';
 
 const SignUpClerk = () => {
   const [user, setUser] = useState<IUser>(defaultUser);
@@ -46,7 +47,7 @@ const SignUpClerk = () => {
         /> */}
         <Button
           label=""
-          onClick={() => console.log('Google')}
+          onClick={signInWithGoogle}
           icon={() => <GoogleIcon />}
           iconPre
           wrapperClass="w-full"
