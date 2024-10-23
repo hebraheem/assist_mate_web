@@ -10,6 +10,7 @@ import { BellDotIcon, History, House, LogOut, MessageSquare, Settings, Settings2
 import { logout } from 'src/services/serviceFn/users';
 import usePullToRefresh, { PullIndicator } from 'src/components/ui/pull-refresh';
 import { auth } from 'src/services/firebase';
+import LiveLocationUpdater from 'src/tasks/location-updater';
 
 const navItem = [
   { label: 'HOME', icon: <House className="w-6 h-6" />, href: privateUrls.HOME },
@@ -166,6 +167,7 @@ const UserLayout = () => {
           );
         })}
       </div>
+      <LiveLocationUpdater />
     </div>
   );
 };
