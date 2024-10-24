@@ -1,6 +1,7 @@
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { Dispatch, SetStateAction, useRef } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { IUserResponse } from 'src/@types/user';
+import ResponsiveModalDrawer from 'src/components/ui/modal';
 import { auth, storage } from 'src/services/firebase';
 import { useI18n } from 'src/services/languages/i18fn';
 
@@ -8,7 +9,7 @@ const Documents = ({
   userData,
   mutate,
   setUser,
-  // isUpdating,
+  isUpdating,
 }: {
   userData: IUserResponse;
   mutate: any;
@@ -17,6 +18,7 @@ const Documents = ({
 }) => {
   const i18n = useI18n();
   const fileRef = useRef<any>(null);
+  const [file2View, setFile2View] = useState<{ name: string; file: string } | null>(null);
 
   const handleFileOpen = () => {
     if (fileRef?.current) {
@@ -57,6 +59,7 @@ const Documents = ({
     <div>
       <form onSubmit={(e) => e.preventDefault}>
         <div>
+          {isUpdating && 'Updating...'}
           {userData.settings?.documents?.map((doc: unknown) => {
             const docUrl = new URL(decodeURIComponent(doc as string));
             const name = docUrl.searchParams.get('name');
@@ -78,7 +81,12 @@ const Documents = ({
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <button onClick={() => console.log('object :>> ')} type="button">
+                  <button
+                    onClick={() => {
+                      setFile2View({ file: doc as string, name: name as string });
+                    }}
+                    type="button"
+                  >
                     <img
                       src="https://img.icons8.com/?size=100&id=986&format=png&color=000000"
                       alt="view"
@@ -110,7 +118,7 @@ const Documents = ({
             );
           })}
           <div
-            className="w-full border-2 p-3 border-dotted shadow-lg border-slate-500 rounded-lg text-center"
+            className="w-full border-2 p-3 border-dotted shadow-lg border-slate-500 rounded-lg text-center mb-3"
             onClick={handleFileOpen}
             onKeyDown={handleFileOpen}
             tabIndex={0}
@@ -133,15 +141,25 @@ const Documents = ({
           />
         </div>
 
-        {/* <div className={`${!userData.settings?.documents?.length && 'hidden'} flex justify-end mt-3`}>
-          <Button
-            isLoading={isUpdating}
-            disabled={isUpdating}
-            className="p-2 bg-blue-500 text-white hover:bg-blue-500"
-            label={i18n.msg('UPDATE')}
-            onClick={handleUploadFiles}
-          />
-        </div> */}
+        <ResponsiveModalDrawer
+          onClose={() => setFile2View(null)}
+          hideCloseBtn
+          isOpen={Boolean(file2View)}
+          backdropCollapsible
+        >
+          <div className="h-full w-full">
+            <div className="flex justify-end mb-3">
+              <button onClick={() => setFile2View(null)}>
+                <img
+                  src="https://img.icons8.com/?size=100&id=3062&format=png&color=000000"
+                  alt="close"
+                  className="h-6 w-6"
+                />
+              </button>
+            </div>
+            <img src={file2View?.file} alt={file2View?.name} className="w-full h-full" />
+          </div>
+        </ResponsiveModalDrawer>
       </form>
     </div>
   );

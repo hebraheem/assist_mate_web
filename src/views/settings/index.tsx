@@ -58,7 +58,9 @@ const Settings = () => {
     {
       iconLink: 'https://img.icons8.com/?size=100&id=123429&format=png&color=000000',
       label: 'Advanced settings',
-      content: <UserSettings mutate={mutate} userData={user as IUserResponse} />,
+      content: (
+        <UserSettings mutate={mutate} userData={user as IUserResponse} setUser={setUser} isUpdating={isUpdating} />
+      ),
     },
     {
       iconLink: 'https://img.icons8.com/?size=100&id=38991&format=png&color=000000',

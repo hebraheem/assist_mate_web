@@ -44,9 +44,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       const spaceBelow = window.innerHeight - rect.bottom;
       const spaceAbove = rect.top;
 
-      // Check if there's enough space below; if not, open upward
-      if (spaceBelow < 200 && spaceAbove > 200) {
-        // 200px is an example dropdown height
+      if (spaceBelow < 256 && spaceAbove > 256) {
         setOpenUpward(true);
       } else {
         setOpenUpward(false);
@@ -170,7 +168,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       {/* Dropdown List */}
       {isOpen && (
         <div
-          className={`absolute mt-2 bg-white border border-gray-300 rounded w-full max-h-64 overflow-y-auto shadow-lg z-30 ${openUpward ? '-top-48' : 'top-10'} transition-all ease-in-out duration-300`}
+          className={`absolute px-2 mt-2 bg-white border border-gray-300 rounded w-full h-64 overflow-y-auto shadow-lg z-30 ${openUpward ? '-top-28' : 'top-10'} transition-all ease-in-out duration-300`}
           ref={dropdownRef}
         >
           <input

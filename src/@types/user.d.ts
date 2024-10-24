@@ -50,7 +50,7 @@ export interface IUserResponse {
   email?: string;
   firstName?: string;
   hobbies?: Array<unknown>;
-  otherLanguages?: Array<unknown>;
+  otherLanguages?: string[];
   isActive?: boolean;
   lastName?: string;
   chats?: Array<unknown>;
