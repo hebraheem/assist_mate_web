@@ -94,7 +94,7 @@ const Settings = () => {
 
   return (
     <div className="md:max-w-[80%] m-auto relative" ref={pullRef}>
-      <div className="flex bg-white md:h-[30vh] h-[21vh] m-2 shadow-lg bg-opacity-45 rounded-lg">
+      <div className="flex bg-white md:h-[30vh] h-[21vh] m-2 shadow-lg bg-opacity-45 rounded-lg items-center">
         <div className="md:h-[250px] h-[140px] md:w-[250px] w-[140px]  my-auto">
           <img
             src={authUser?.photoURL ?? user?.photoURL ?? noUserImage}
@@ -120,7 +120,17 @@ const Settings = () => {
           className="absolute top-0 hidden"
           accept=".png,.jpeg,.jpg"
         />
-        <div>{}</div>
+        <div className="ml-6 bg-white bg-opacity-80 shadow-lg p-3 rounded-lg">
+          <p className="text-bold">
+            {user?.firstName}
+            {'  '} {user?.lastName}
+          </p>
+          <p>{user?.email}</p>
+          <p>{user?.settings?.occupation}</p>
+          <p>
+            {i18n.msg('AVERAGE_REVIEW')}:{'  '}3.5
+          </p>
+        </div>
       </div>
       <Tabs
         mainWrapperClass="p-2"

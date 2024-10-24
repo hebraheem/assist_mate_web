@@ -3,6 +3,7 @@ import { Option } from 'src/@types/form-fields';
 import { IUserResponse } from 'src/@types/user';
 import Input from 'src/components/forms/Input';
 import MultiSelect from 'src/components/forms/multi-select';
+import Textarea from 'src/components/forms/Textarea';
 import Button from 'src/components/ui/button';
 import { useI18n } from 'src/services/languages/i18fn';
 import { languages } from 'src/utils/constant';
@@ -81,7 +82,7 @@ const Settings = ({
           />
         </div>
         <div>
-          <Input
+          <Textarea
             id="hobbies"
             wrapperClass="w-full"
             value={hobbies}

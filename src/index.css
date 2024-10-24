@@ -80,5 +80,6 @@
       'rlig' 1,
       'calt' 1;
     font-family: 'roboto', sans-serif;
+    box-sizing: border-box;
   }
 }

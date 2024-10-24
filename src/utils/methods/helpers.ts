@@ -73,3 +73,10 @@ export function separateAndCapitalize(input: string | undefined): string | undef
 export const errorTransform = (err: string): string => {
   return err?.replace(/Firebase:/g, '');
 };
+
+export function truncateText(text: string, maxLength: number) {
+  if (text?.length > maxLength) {
+    return text.slice(0, maxLength) + '...';
+  }
+  return text;
+}

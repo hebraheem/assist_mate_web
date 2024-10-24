@@ -1,5 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import Button from 'src/components/ui/button';
+import i18n from 'src/i18n';
 
 describe('Button Component', () => {
   const baseProps = {
@@ -29,7 +30,7 @@ describe('Button Component', () => {
   test('shows loading state when isLoading is true', () => {
     render(<Button {...baseProps} isLoading={true} />);
 
-    const buttonElement = screen.getByText('loading...');
+    const buttonElement = screen.getByText(i18n.t('LOADING'));
     expect(buttonElement).toBeInTheDocument();
   });
 

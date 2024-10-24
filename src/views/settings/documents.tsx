@@ -4,6 +4,7 @@ import { IUserResponse } from 'src/@types/user';
 import ResponsiveModalDrawer from 'src/components/ui/modal';
 import { auth, storage } from 'src/services/firebase';
 import { useI18n } from 'src/services/languages/i18fn';
+import { truncateText } from 'src/utils/methods/helpers';
 
 const Documents = ({
   userData,
@@ -59,7 +60,7 @@ const Documents = ({
     <div>
       <form onSubmit={(e) => e.preventDefault}>
         <div>
-          {isUpdating && 'Updating...'}
+          {isUpdating && i18n.msg('LOADING')}
           {userData.settings?.documents?.map((doc: unknown) => {
             const docUrl = new URL(decodeURIComponent(doc as string));
             const name = docUrl.searchParams.get('name');
@@ -67,13 +68,13 @@ const Documents = ({
             return (
               <div
                 key={doc as string}
-                className="w-full flex justify-between items-center bg-white shadow-lg border-2 border-slate-400 rounded-lg h-28 mb-2 px-2"
+                className="w-full flex justify-between items-center bg-white shadow-lg border-2 border-slate-400 rounded-lg h-28 mb-2 pr-2"
               >
-                <div className="flex items-center">
-                  <img src={doc as string} alt="doc" className="h-full max-w-32 object-cover rounded-lg" />
-                  <div>
-                    <p>
-                      {i18n.msg('NAME')}: {name}
+                <div className="flex items-center h-28">
+                  <img src={doc as string} alt="doc" className="h-full w-28 object-cover rounded-lg" />
+                  <div className="pl-2">
+                    <p className="text-ellipsis">
+                      {i18n.msg('NAME')}: {truncateText(name as string, 15)}
                     </p>
                     <p>
                       {i18n.msg('SIZE')}: {size}
@@ -118,7 +119,7 @@ const Documents = ({
             );
           })}
           <div
-            className="w-full border-2 p-3 border-dotted shadow-lg border-slate-500 rounded-lg text-center mb-3"
+            className="w-full border-2 p-3 border-dotted shadow-lg border-slate-500 rounded-lg text-center mb-3 bg-white bg-opacity-80"
             onClick={handleFileOpen}
             onKeyDown={handleFileOpen}
             tabIndex={0}
@@ -148,7 +149,8 @@ const Documents = ({
           backdropCollapsible
         >
           <div className="h-full w-full">
-            <div className="flex justify-end mb-3">
+            <div className="flex justify-between mb-3">
+              <p>{file2View?.name}</p>
               <button onClick={() => setFile2View(null)}>
                 <img
                   src="https://img.icons8.com/?size=100&id=3062&format=png&color=000000"

@@ -1,3 +1,4 @@
+import i18n from '../../i18n';
 import { IButtonProps } from '../../@types/form-fields';
 
 const Button = ({
@@ -19,7 +20,7 @@ const Button = ({
         className={`w-full flex justify-center border-2 ${isError && 'border-red-500'} shadow-sm items-center rounded-lg ${className}`}
         {...rest}
       >
-        {icon && iconPre ? icon() : null} {isLoading ? 'loading...' : label} {icon && iconPost ? icon() : null}
+        {icon && iconPre ? icon() : null} {isLoading ? i18n.t('LOADING') : label} {icon && iconPost ? icon() : null}
       </button>
     </div>
   );
