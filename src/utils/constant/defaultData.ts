@@ -29,13 +29,7 @@ export const defaultUser: IUser = {
   settings: {
     language: '',
     occupation: '',
-    currentLatLng: { lat: null, lng: null },
-    documents: {
-      id: '',
-      proof_1: '',
-      proof_2: '',
-      proof_3: '',
-    },
+    documents: [],
   },
 };
 

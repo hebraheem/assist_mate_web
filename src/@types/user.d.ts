@@ -42,8 +42,7 @@ export interface IDocuments {
 export interface ISettings {
   language?: string;
   occupation?: string;
-  currentLatLng?: ICoordinate;
-  documents?: IDocuments;
+  documents?: unknown[];
 }
 
 export interface IUserResponse {
@@ -65,6 +64,7 @@ export interface IUserResponse {
   primaryLanguage?: string;
   verified?: boolean;
   bio?: string;
+  location?: { latitude: number; longitude: number };
   createdAt?: ILastLogIn;
   requests?: Array<unknown>;
   locationAllowed?: boolean;
@@ -105,8 +105,7 @@ export interface ICurrentLatLng {
   lng?: null;
 }
 export interface ISettings {
-  documents?: IDocuments;
-  currentLatLng?: ICurrentLatLng;
+  documents?: unknown[];
   occupation?: string;
   language?: string;
 }

@@ -13,7 +13,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { auth, db, googleAuth } from '../firebase';
-import { doc, getDocFromServer, setDoc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDocFromServer, setDoc, updateDoc } from 'firebase/firestore';
 import { IUser, IUserResponse } from '../../@types/user';
 import { messageChannelUrl } from 'src/utils/constant';
 import i18n from 'src/i18n';
@@ -159,6 +159,10 @@ export const updateUserProfile = async (data: { data: IUserResponse; updateOther
     delete onlyDbData?.metadata;
     onlyDbData.displayName = user.displayName as string;
     onlyDbData.verified = user.emailVerified;
+    if (onlyDbData.settings?.documents?.length) {
+      // @ts-ignore
+      onlyDbData.settings.documents = arrayUnion(...onlyDbData.settings.documents);
+    }
     await updateDoc(userDocRef, { ...onlyDbData });
   } else {
     // update the photoURL in Firestore
