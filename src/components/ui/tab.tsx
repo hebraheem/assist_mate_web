@@ -70,7 +70,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, contentClass, labelWrapperClass, main
 
       {/* Tab Content with Fade Animation */}
       <div
-        className={`md:flex-1 p-4 border md:border-l border-gray-300 
+        className={`md:flex-1 p-4 border md:border-l border-gray-300 overflow-y-auto
           transition-opacity duration-300 ${isAnimating ? 'opacity-0' : 'opacity-100'} ${contentClass}`}
       >
         {tabs[activeTab]?.content}

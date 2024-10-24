@@ -8,7 +8,7 @@ import { privateUrls, publicUrls } from '../routes/urls';
 import MenubarComponent from '../components/ui/menu-bar';
 import { BellDotIcon, History, House, LogOut, MessageSquare, Settings, Settings2, User } from 'lucide-react';
 import { logout } from 'src/services/serviceFn/users';
-import usePullToRefresh, { PullIndicator } from 'src/components/ui/pull-refresh';
+import usePullToRefresh from 'src/components/ui/pull-refresh';
 import { auth } from 'src/services/firebase';
 import LiveLocationUpdater from 'src/tasks/location-updater';
 
@@ -25,7 +25,7 @@ const UserLayout = () => {
   const i18n = useI18n();
   const refreshCont = useRef<any>(0);
   const { isLoading, isAuthenticated, user } = useAuthentication();
-  const { polling, pullChangeDegree } = usePullToRefresh(refreshCont, () => auth.currentUser?.reload());
+  usePullToRefresh(refreshCont, () => auth.currentUser?.reload());
 
   useEffect(
     () => {
@@ -43,7 +43,7 @@ const UserLayout = () => {
   const photoUrl = user?.photoURL ?? noUserImage;
   return (
     <div className="bg-light-blue-gradient w-full min-h-screen relative" ref={refreshCont}>
-      {polling && <PullIndicator pullChangeDegree={pullChangeDegree} />}
+      {/* {polling && <PullIndicator />} */}
 
       <div className="absolute inset-10 flex items-center justify-center z-0">
         <div className="absolute top-10 left-0 w-16 h-16">

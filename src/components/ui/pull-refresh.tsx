@@ -96,7 +96,7 @@ export default function usePullToRefresh(ref: React.RefObject<HTMLDivElement>, o
   return { polling, pullChangeDegree };
 }
 
-export const PullIndicator = ({ pullChangeDegree }: { pullChangeDegree: number }) => {
+export const PullIndicator = ({ pullChangeDegree }: { pullChangeDegree?: number }) => {
   return (
     <div className="refresh-icon p-2 rounded-full flex justify-center">
       <div className="w-12">
